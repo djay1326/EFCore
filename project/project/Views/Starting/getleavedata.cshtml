@@ -1,0 +1,33 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model project.Models.leave
+@{
+    Layout = null;
+}
+
+<form method="post" class="col-sm-12">
+    <div class="row mb-3">
+        <input type="hidden" asp-for="leaveid" id="add11"/>
+        <div class="col-sm-6">
+            <div class="form-group d-flex flex-column">
+                <label for="editDateModal" class="control-label fw-bold">From Date</label>
+                <input id="t1" asp-for="fromDate" class="ht bdr2">
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group d-flex flex-column">
+                <label for="editDateModal" class="control-label fw-bold">To Date</label>
+                <input id="t2" asp-for="toDate" class="ht bdr2">
+            </div>
+        </div>
+    </div>
+
+
+    <div class="form-group d-flex flex-column mb-3">
+        <label for="reasonScheduleEdit" class="fw-bold">Reason for Leave</label>
+        <textarea rows="3" maxlength="500" placeholder="Reason for Leave?" asp-for="reason" id="t3" class="bdr2 p-2"></textarea>
+    </div>
+
+    <button type="submit" id="t6" class="btn updateBtn w-100">Update</button>
+</form>

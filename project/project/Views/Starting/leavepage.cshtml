@@ -1,0 +1,1113 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<User> signInManager
+@*@model PaginatedList<project.Models.leave>*@
+@model IEnumerable<project.Models.leave>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- index.html  21 Nov 2019 03:44:50 GMT -->
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+    <title>Workspace</title>
+    <!-- General CSS Files -->
+    <link rel="stylesheet" href="~/assets/css/app.min.css">
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="~/assets/css/style.css">
+    <link rel="stylesheet" href="~/assets/css/components.css">
+    <!-- Custom style CSS -->
+    <link rel="stylesheet" href="~/assets/css/custom.css">
+    <link href="~/assets/css/manage.css" rel="stylesheet" />
+    <link rel='shortcut icon' type='image/x-icon' href='~/assets/img/favicon.ico' />
+    @*<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">*@
+
+    @*<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">*@
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap4.min.css">
+    <style>
+        .ht {
+            min-height: 46px;
+            padding: 10px;
+        }
+
+        .bdr2 {
+            border: 1px solid #e1e1e1;
+            color: #646464;
+        }
+
+        label {
+            color: #646464;
+        }
+
+        .bld {
+            font-weight: 550;
+        }
+
+        .updateBtn {
+            color: white;
+            background-color: #6777EF;
+        }
+
+        .refundUp {
+            color: white;
+            background-color: #1fb6ff;
+        }
+
+        /*.def {
+            background-color: white !important;
+        }*/
+        .def {
+            background-color: darkgray !important;
+            box-shadow: 15px 9px 25px 0 rgb(0 0 0 / 10%) !important;
+        }
+
+        .bll {
+            border: 1px solid #e1e1e1;
+        }
+
+        .clrr {
+            color: #646464;
+        }
+
+        .pdd {
+            padding: 10px;
+        }
+
+        .reschedule-btn {
+            padding: 10px;
+            background-color: #6777EF;
+            font-size: 14px;
+            border: none;
+        }
+        .completed {
+            color: white;
+            background-color: #67b644;
+            padding: 5px 10px;
+        }
+
+        .pending {
+            color: white;
+            background-color: #1fb6ff;
+            padding: 5px 19px;
+        }
+
+        .new {
+            color: white;
+            background-color: #f2bb37;
+            padding: 5px 33px;
+        }
+
+        .cancelled {
+            color: white;
+            background-color: #ff6b6b;
+            padding: 5px 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="loader"></div>
+    <div id="app">
+        <div class="main-wrapper main-wrapper-1">
+            <div class="navbar-bg"></div>
+            <nav class="navbar navbar-expand-lg main-navbar sticky def">
+                <div class="form-inline mr-auto">
+                    <ul class="navbar-nav mr-3">
+                        <li>
+                            <a href="#" data-toggle="sidebar" class="nav-link nav-link-lg
+									collapse-btn"> <i data-feather="align-justify"></i></a>
+                        </li>
+                        <li>
+                            <a href="#" class="nav-link nav-link-lg fullscreen-btn">
+                                <i data-feather="maximize"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <form class="form-inline mr-auto">
+                                <div class="search-element">
+                                    <input class="form-control" type="search" placeholder="Search" aria-label="Search" data-width="200">
+                                    <button class="btn" type="submit">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </div>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+                <ul class="navbar-nav navbar-right">
+                    <li class="dropdown dropdown-list-toggle">
+                        <a href="#" data-toggle="dropdown"
+                           class="nav-link nav-link-lg message-toggle">
+                            <i data-feather="mail"></i>
+                            <span class="badge headerBadge1">
+                                6
+                            </span>
+                        </a>
+                        <div class="dropdown-menu dropdown-list dropdown-menu-right pullDown">
+                            <div class="dropdown-header">
+                                Messages
+                                <div class="float-right">
+                                    <a href="#">Mark All As Read</a>
+                                </div>
+                            </div>
+                            <div class="dropdown-list-content dropdown-list-message">
+                                <a href="#" class="dropdown-item">
+                                    <span class="dropdown-item-avatar
+											text-white">
+                                        <img alt="image" src="~/assets/img/users/user-1.png" class="rounded-circle">
+                                    </span> <span class="dropdown-item-desc">
+                                        <span class="message-user">
+                                            John
+                                            Deo
+                                        </span>
+                                        <span class="time messege-text">Please check your mail !!</span>
+                                        <span class="time">2 Min Ago</span>
+                                    </span>
+                                </a> <a href="#" class="dropdown-item">
+                                    <span class="dropdown-item-avatar text-white">
+                                        <img alt="image" src="~/assets/img/users/user-2.png" class="rounded-circle">
+                                    </span> <span class="dropdown-item-desc">
+                                        <span class="message-user">
+                                            Sarah
+                                            Smith
+                                        </span> <span class="time messege-text">
+                                            Request for leave
+                                            application
+                                        </span>
+                                        <span class="time">5 Min Ago</span>
+                                    </span>
+                                </a> <a href="#" class="dropdown-item">
+                                    <span class="dropdown-item-avatar text-white">
+                                        <img alt="image" src="~/assets/img/users/user-5.png" class="rounded-circle">
+                                    </span> <span class="dropdown-item-desc">
+                                        <span class="message-user">
+                                            Jacob
+                                            Ryan
+                                        </span> <span class="time messege-text">
+                                            Your payment invoice is
+                                            generated.
+                                        </span> <span class="time">12 Min Ago</span>
+                                    </span>
+                                </a> <a href="#" class="dropdown-item">
+                                    <span class="dropdown-item-avatar text-white">
+                                        <img alt="image" src="~/assets/img/users/user-4.png" class="rounded-circle">
+                                    </span> <span class="dropdown-item-desc">
+                                        <span class="message-user">
+                                            Lina
+                                            Smith
+                                        </span> <span class="time messege-text">
+                                            hii John, I have upload
+                                            doc
+                                            related to task.
+                                        </span> <span class="time">
+                                            30
+                                            Min Ago
+                                        </span>
+                                    </span>
+                                </a> <a href="#" class="dropdown-item">
+                                    <span class="dropdown-item-avatar text-white">
+                                        <img alt="image" src="~/assets/img/users/user-3.png" class="rounded-circle">
+                                    </span> <span class="dropdown-item-desc">
+                                        <span class="message-user">
+                                            Jalpa
+                                            Joshi
+                                        </span> <span class="time messege-text">
+                                            Please do as specify.
+                                            Let me
+                                            know if you have any query.
+                                        </span> <span class="time">
+                                            1
+                                            Days Ago
+                                        </span>
+                                    </span>
+                                </a> <a href="#" class="dropdown-item">
+                                    <span class="dropdown-item-avatar text-white">
+                                        <img alt="image" src="~/assets/img/users/user-2.png" class="rounded-circle">
+                                    </span> <span class="dropdown-item-desc">
+                                        <span class="message-user">
+                                            Sarah
+                                            Smith
+                                        </span> <span class="time messege-text">Client Requirements</span>
+                                        <span class="time">2 Days Ago</span>
+                                    </span>
+                                </a>
+                            </div>
+                            <div class="dropdown-footer text-center">
+                                <a href="#">View All <i class="fas fa-chevron-right"></i></a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="dropdown dropdown-list-toggle">
+                        <a href="#" data-toggle="dropdown"
+                           class="nav-link notification-toggle nav-link-lg">
+                            <i data-feather="bell" class="bell"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-list dropdown-menu-right pullDown">
+                            <div class="dropdown-header">
+                                Notifications
+                                <div class="float-right">
+                                    <a href="#">Mark All As Read</a>
+                                </div>
+                            </div>
+                            <div class="dropdown-list-content dropdown-list-icons">
+                                <a href="#" class="dropdown-item dropdown-item-unread">
+                                    <span class="dropdown-item-icon bg-primary text-white">
+                                        <i class="fas
+												fa-code"></i>
+                                    </span> <span class="dropdown-item-desc">
+                                        Template update is
+                                        available now! <span class="time">
+                                            2 Min
+                                            Ago
+                                        </span>
+                                    </span>
+                                </a> <a href="#" class="dropdown-item">
+                                    <span class="dropdown-item-icon bg-info text-white">
+                                        <i class="far
+												fa-user"></i>
+                                    </span> <span class="dropdown-item-desc">
+                                        <b>You</b> and <b>
+                                            Dedik
+                                            Sugiharto
+                                        </b> are now friends <span class="time">
+                                            10 Hours
+                                            Ago
+                                        </span>
+                                    </span>
+                                </a> <a href="#" class="dropdown-item">
+                                    <span class="dropdown-item-icon bg-success text-white">
+                                        <i class="fas
+												fa-check"></i>
+                                    </span> <span class="dropdown-item-desc">
+                                        <b>Kusnaedi</b> has
+                                        moved task <b>Fix bug header</b> to <b>Done</b> <span class="time">
+                                            12
+                                            Hours
+                                            Ago
+                                        </span>
+                                    </span>
+                                </a> <a href="#" class="dropdown-item">
+                                    <span class="dropdown-item-icon bg-danger text-white">
+                                        <i class="fas fa-exclamation-triangle"></i>
+                                    </span> <span class="dropdown-item-desc">
+                                        Low disk space. Let's
+                                        clean it! <span class="time">17 Hours Ago</span>
+                                    </span>
+                                </a> <a href="#" class="dropdown-item">
+                                    <span class="dropdown-item-icon bg-info text-white">
+                                        <i class="fas
+												fa-bell"></i>
+                                    </span> <span class="dropdown-item-desc">
+                                        Welcome to Otika
+                                        template! <span class="time">Yesterday</span>
+                                    </span>
+                                </a>
+                            </div>
+                            <div class="dropdown-footer text-center">
+                                <a href="#">View All <i class="fas fa-chevron-right"></i></a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" data-toggle="dropdown"
+                           class="nav-link dropdown-toggle nav-link-lg nav-link-user">
+                            <img alt="image" src="~/assets/img/user.png"
+                                 class="user-img-radious-style"> <span class="d-sm-none d-lg-inline-block"></span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right pullDown">
+
+                            @if (signInManager.IsSignedIn(User))
+                            {
+                                <div class="dropdown-title">Hello, @User.Identity.Name </div>
+                            }
+                            else
+                            {
+                                <div class="dropdown-title">Login First </div>
+                            }
+                            <a href="profile.html" class="dropdown-item has-icon">
+                                <i class="far
+										fa-user"></i> Profile
+                            </a>
+
+                            <a asp-controller="Starting" asp-action="listroles" class="dropdown-item has-icon">
+                                <i class="fas fa-bolt"></i>
+                                Manage Roles
+                            </a>
+                            <a href="#" class="dropdown-item has-icon">
+                                <i class="fas fa-cog"></i>
+                                Settings
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            @*<a href="auth-login.html" class="dropdown-item has-icon text-danger">
+                                    <i class="fas fa-sign-out-alt"></i>
+                                    Logout
+                                </a>*@
+
+                            @if (signInManager.IsSignedIn(User))
+                            {
+                                <form method="post" asp-controller="Starting" asp-action="logout">
+                                    <button type="submit" class="dropdown-item has-icon text-danger border-0" @*asp-controller="Starting" asp-action="logout"*@>
+                                        <i class="fas fa-sign-out-alt mt-2"></i>
+                                        Logout
+                                    </button>
+                                </form>
+
+                            }
+
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+            <div class="main-sidebar sidebar-style-2">
+                <aside id="sidebar-wrapper">
+                    <div class="sidebar-brand">
+                        <a asp-controller="Starting" asp-action="homepage">
+                            <img alt="image" src="~/assets/img/logo.png" class="header-logo" /> <span class="logo-name">Workspace</span>
+                        </a>
+                    </div>
+                    <ul class="sidebar-menu">
+                        <li class="menu-header">Main</li>
+                        <li class="dropdown ">
+                            <a asp-controller="Starting" asp-action="homepage" class="nav-link"><i data-feather="monitor"></i><span>Dashboard</span></a>
+                        </li>
+
+                        <li class="dropdown active">
+                            <a asp-controller="Starting" asp-action="leavepage" class="nav-link "><i data-feather="command"></i><span>Leave</span></a>
+                        </li>
+                        <li class="dropdown">
+                            <a asp-controller="Starting" asp-action="salary" class=" nav-link "><i data-feather="mail"></i><span>Salary</span></a>
+                        </li>
+                        @if (signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+                        {
+                            <li class="dropdown">
+                                <a asp-controller="Starting" asp-action="unassignedroles" class=" nav-link "><i data-feather="bell"></i><span>Unassigned roles</span></a>
+                            </li>
+                        }
+                        @if (signInManager.IsSignedIn(User) && User.IsInRole("Manager"))
+                        {
+                            <li class="dropdown">
+                                <a asp-controller="Starting" asp-action="addemp" class=" nav-link "><i data-feather="mail"></i><span>Add Employee</span></a>
+                            </li>
+                        }
+                    </ul>
+                </aside>
+            </div>
+            <!-- Main Content -->
+            <div class="main-content">
+                <section class="section">
+
+                    <div class="managee d-flex justify-content-between mb-2">
+                        <h1 class="m-0">My Leave Request</h1>
+                        @if (User.IsInRole("Manager") || (User.IsInRole("Employee")))
+                        {
+                            <a asp-controller="Starting" asp-action="addleaverequest" role="button" class="text-white text-decoration-none" style="background: #6777EF">
+                                <img src="~/images/addNew.png" alt="" height="16" width="16">
+                                @*<img src="~/images/addNew.png" />*@
+                                @*<span class="ms-1"><a href="#EditReschedule" class="text-decoration-none">Add Leave Request</a></span>*@
+                                <span class="ms-1">Add Leave Request</span>
+
+                            </a>
+                        }
+
+                    </div>
+                    @*<div class="inputBlock position-relative mb-2" style="background-color: lightgray">
+                            <form action="#">
+                                <ul class="inputBlock1">
+
+                                    <li>
+                                        <select name="status" id="status" class="blockb1 gapp h-100 da">
+                                            <option value="" disabled selected>Status</option>
+                                            <option value="admin">All</option>
+                                            <option value="customer">Accepted</option>
+                                            <option value="Service Provider">Pending</option>
+                                            <option value="Service Provider">Rejected</option>
+                                        </select>
+                                    </li>
+
+                                    <li>
+                                        <input type="date" name="fromDate" id="min" placeholder="From Date" class="blockb2 gapp4 h-100 da">
+                                    </li>
+                                    <li>
+                                        <input type="date" name="fromDate" id="max" placeholder="To Date" class="blockb2 gapp4 h-100 da">
+                                    </li>
+                                    <li>
+                                    <li>
+                                        <button type="button" class="text-white gapp searchBtn h-100 mb-3" style="background: #6777EF"> Search </button>
+                                    </li>
+                                    <li>
+                                        <button type="reset" class="gapp clearBtn h-100 mb-3">Clear</button>
+                                    </li>
+                                </ul>
+                            </form>
+                        </div>*@
+
+                    <div class="row">
+                        <div class="col-md-12 col-lg-12 col-xl-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4>Leave Requests</h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+
+                                        <form method="post" asp-controller="Starting" asp-action="leavepage" id="xyz" class="overflow-hidden">
+                                            <ul class="inputBlock1 mb-2">
+
+                                                <li>
+                                                    <select name="statusids" id="status" class="blockb1 gapp h-100 da" value="@ViewBag.status">
+                                                        <option disabled selected>Status</option>
+                                                        @*<option value="admin">All</option>*@
+                                                        @*@if (User.IsInRole("Manager"))
+                                                            {
+                                                                <option value="admin">All</option>
+                                                            }*@
+                                                        <option value="2">Accepted</option>
+                                                        <option value="1">Pending</option>
+                                                        <option value="3">Rejected</option>
+                                                    </select>
+                                                </li>
+
+                                                <li>
+                                                    <input type="date" value="@ViewBag.startdate" name="startdate" id="min" placeholder="From Date" class="blockb2 gapp4 h-100 da">
+                                                </li>
+                                                <li>
+                                                    <input type="date" value="@ViewBag.enddate" name="enddate" id="max" placeholder="To Date" class="blockb2 gapp4 h-100 da">
+                                                </li>
+                                                <li>
+                                                <li>
+                                                    <button type="submit" class="text-white gapp searchBtn h-100 mb-3" style="background: #6777EF"> Search </button>
+                                                </li>
+                                                <li>
+                                                    <a asp-controller="Starting" asp-action="display">
+                                                        <button type="button" id="abc" class="gapp clearBtn h-100 mb-3">Clear</button>
+                                                    </a>
+                                                </li>
+
+                                            </ul>
+                                            @*</form>*@
+                                            @*<partial name="~/Views/Shared/_loadstatus.cshtml" />*@
+                                            <table class="table table-hover mb-0 overflow-hidden" id="tab1">
+                                                <thead>
+                                                    <tr class="vw-100">
+                                                        <th>#</th>
+                                                        <th>From</th>
+                                                        <th>To</th>
+                                                        <th>Status</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @*@if (User.IsInRole("Manager"))*@
+
+                                                    @foreach (var item in Model)
+                                                    {
+
+                                                        <tr>
+                                                            <td>@item.leaveid</td>
+                                                            <td>@item.fromDate.Value.ToShortDateString()</td>
+                                                            <td>@item.toDate.Value.ToShortDateString()</td>
+                                                            <td>
+                                                                @if (item.statusid == 1)
+                                                                {
+
+                                                                    <span class="pending">Pending</span>
+
+                                                                }
+                                                                else @if (item.statusid == 2)
+                                                           {
+                                                            <span class="completed">Accepted</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span class="cancelled">Rejected</span>
+                                                        }
+
+                                                            </td>
+                                                            <td>
+                                                                @if (User.IsInRole("Manager"))
+                                                                {
+                                                                    @if (item.roleid == 3)
+                                                                    {
+
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <a role="button">
+                                                                            <img src="~/assets/img/edit-icon.png" srid="@item.leaveid" class="adddetails" title="Edit" alt="" height="22" width="22" />
+                                                                        </a>
+                                                                        <a href="#deleteAdressModal" data-toggle="modal" role="button" srid="@item.leaveid" class="deleteMenu">
+                                                                            <img src="~/assets/img/delete-icon.png" title="Delete" alt="" height="22" width="22">
+                                                                        </a>
+                                                                    }
+                                                                }
+                                                                else @if (User.IsInRole("Employee"))
+                                                           {
+                                                            <a role="button">
+                                                                <img src="~/assets/img/edit-icon.png" srid="@item.leaveid" class="adddetails" title="Edit" alt="" height="22" width="22" />
+                                                            </a>
+                                                            <a href="#deleteAdressModal" data-toggle="modal" role="button" srid="@item.leaveid" class="deleteMenu">
+                                                                <img src="~/assets/img/delete-icon.png" title="Delete" alt="" height="22" width="22">
+                                                            </a>
+                                                        }
+
+                                                                @if (User.IsInRole("Manager") || User.IsInRole("Admin"))
+                                                                {
+                                                                    @if (item.roleid == 3)
+                                                                    {
+                                                                        @if ((item.statusid == 1) || (item.statusid == 3))
+                                                                        {
+                                                                            <button type="button" class="btn dropDownBtn" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                                &#8942
+                                                                            </button>
+                                                                        }
+
+                                                                        <ul class="dropdown-menu dropdown-menu-end">
+                                                                            @*<li><button class="dropdown-item" type="button">Edit</button></li>*@
+                                                                            @if ((item.statusid == 1))
+                                                                            {
+                                                                                @if (item.fromDate < DateTime.Now)
+                                                                                {
+                                                                                    <li>Now, no actions can be performed.</li>
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    <li><a asp-action="activate" asp-route-id="@item.leaveid" class="text-decoration-none"><button class="dropdown-item" type="button">Accept </button></a></li>
+                                                                                    <li><a asp-action="deactivate" asp-route-id="@item.userid" class="text-decoration-none"><button class="dropdown-item" type="button">Reject</button></a></li>
+
+                                                                                }
+                                                                            }
+                                                                            else @if ((item.statusid == 3))
+                                                                       {
+                                                                        <li>No actions needed</li>
+                                                                        @*<li><a asp-action="activate" asp-route-id="@item.userid" class="text-decoration-none"><button class="dropdown-item" type="button">Accept</button></a></li>*@
+                                                                    }
+                                                                    else @if ((item.statusid == 2))
+                                                                   {
+                                                                    <li>No actions needed</li>
+                                                                    @*<li><a asp-action="deactivate" asp-route-id="@item.userid" class="text-decoration-none"><button class="dropdown-item" type="button">Reject</button></a></li>*@
+                                                                }
+                                                                else @if (item.fromDate < DateTime.Now)
+                                                               {
+                                                                <li>Now, no actions can be performed.</li>
+                                                            }
+
+                                                            </ul>
+                                                        }
+                                                        else
+                                                        {
+
+                                                        }
+                                                                    @if (item.roleid == 2)
+                                                                    {
+                                                                        @if ((item.statusid == 1))
+                                                                        {
+                                                                            <button type="button" class="btn dropDownBtn" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                                &#8942
+                                                                            </button>
+
+                                                                        }
+                                                                        <ul class="dropdown-menu dropdown-menu-end">
+                                                                            @*<li><button class="dropdown-item" type="button">Edit</button></li>*@
+                                                                            @if ((item.statusid == 1))
+                                                                            {
+                                                                                @if (item.fromDate.Value.Date == DateTime.Now.Date)
+                                                                                {
+                                                                                    <li><a asp-action="activate" asp-route-id="@item.leaveid" class="text-decoration-none"><button class="dropdown-item" type="button">Accept </button></a></li>
+                                                                                    <li><a asp-action="deactivate" asp-route-id="@item.userid" class="text-decoration-none"><button class="dropdown-item" type="button">Reject</button></a></li>
+
+                                                                                }
+                                                                                else @if (item.fromDate < DateTime.Now)
+                                                                           {
+                                                                            <li>Now, no actions can be performed.</li>
+                                                                        }
+                                                                        else @if (item.fromDate.Value.Date >= DateTime.Now.Date)
+                                                                       {
+                                                                        <li><a asp-action="activate" asp-route-id="@item.leaveid" class="text-decoration-none"><button class="dropdown-item" type="button">Accept </button></a></li>
+                                                                        <li><a asp-action="deactivate" asp-route-id="@item.userid" class="text-decoration-none"><button class="dropdown-item" type="button">Reject</button></a></li>
+
+                                                                    }
+                                                                    }
+                                                                    else @if ((item.statusid == 3))
+                                                                   {
+                                                                    <li>No actions needed</li>
+                                                                    @*<li><a asp-action="activate" asp-route-id="@item.userid" class="text-decoration-none"><button class="dropdown-item" type="button">Accept</button></a></li>*@
+                                                                }
+                                                                else @if ((item.statusid == 2))
+                                                               {
+                                                                <li>No actions needed</li>
+                                                                @*<li><a asp-action="deactivate" asp-route-id="@item.userid" class="text-decoration-none"><button class="dropdown-item" type="button">Reject</button></a></li>*@
+                                                            }
+                                                            else @if (item.fromDate < DateTime.Now)
+                                                           {
+                                                            <li>Now, no actions can be performed.</li>
+                                                        }
+
+                                                        </ul>
+
+                                                    }
+                                                                }
+
+
+                                                            </td>
+                                                        </tr>
+
+                                                    }
+                                                </tbody>
+                                                <tfoot class="d-none">
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>From</th>
+                                                        <th>To</th>
+                                                        <th>Status</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+
+                                            @*@{
+                                                    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+                                                    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+                                                }
+
+                                                <a asp-action="leavepage" asp-controller="Starting"
+                                                   asp-route-pageNumber="@(Model.PageIndex - 1)"
+                                                   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                                                   class="align-items-end btn btn-default btn-outline-primary mt-3 @prevDisabled">
+                                                    Previous
+                                                </a>
+                                                <a asp-action="leavepage" asp-controller="Starting"
+                                                   asp-route-pageNumber="@(Model.PageIndex + 1)"
+                                                   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                                                   class=" btn btn-default btn-outline-primary mt-3 @nextDisabled">
+                                                    Next
+                                                </a>*@
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="settingSidebar">
+                    <a href="javascript:void(0)" class="settingPanelToggle">
+                        <i class="fa fa-spin fa-cog"></i>
+                    </a>
+                    <div class="settingSidebar-body ps-container ps-theme-default">
+                        <div class=" fade show active">
+                            <div class="setting-panel-header">
+                                Setting Panel
+                            </div>
+                            <div class="p-15 border-bottom">
+                                <h6 class="font-medium m-b-10">Select Layout</h6>
+                                <div class="selectgroup layout-color w-50">
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="value" value="1" class="selectgroup-input-radio select-layout" checked>
+                                        <span class="selectgroup-button">Light</span>
+                                    </label>
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="value" value="2" class="selectgroup-input-radio select-layout">
+                                        <span class="selectgroup-button">Dark</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="p-15 border-bottom">
+                                <h6 class="font-medium m-b-10">Sidebar Color</h6>
+                                <div class="selectgroup selectgroup-pills sidebar-color">
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="icon-input" value="1" class="selectgroup-input select-sidebar">
+                                        <span class="selectgroup-button selectgroup-button-icon" data-toggle="tooltip"
+                                              data-original-title="Light Sidebar"><i class="fas fa-sun"></i></span>
+                                    </label>
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="icon-input" value="2" class="selectgroup-input select-sidebar" checked>
+                                        <span class="selectgroup-button selectgroup-button-icon" data-toggle="tooltip"
+                                              data-original-title="Dark Sidebar"><i class="fas fa-moon"></i></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="p-15 border-bottom">
+                                <h6 class="font-medium m-b-10">Color Theme</h6>
+                                <div class="theme-setting-options">
+                                    <ul class="choose-theme list-unstyled mb-0">
+                                        <li title="white" class="active">
+                                            <div class="white"></div>
+                                        </li>
+                                        <li title="cyan">
+                                            <div class="cyan"></div>
+                                        </li>
+                                        <li title="black">
+                                            <div class="black"></div>
+                                        </li>
+                                        <li title="purple">
+                                            <div class="purple"></div>
+                                        </li>
+                                        <li title="orange">
+                                            <div class="orange"></div>
+                                        </li>
+                                        <li title="green">
+                                            <div class="green"></div>
+                                        </li>
+                                        <li title="red">
+                                            <div class="red"></div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="p-15 border-bottom">
+                                <div class="theme-setting-options">
+                                    <label class="m-b-0">
+                                        <input type="checkbox" name="custom-switch-checkbox" class="custom-switch-input"
+                                               id="mini_sidebar_setting">
+                                        <span class="custom-switch-indicator"></span>
+                                        <span class="control-label p-l-10">Mini Sidebar</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="p-15 border-bottom">
+                                <div class="theme-setting-options">
+                                    <label class="m-b-0">
+                                        <input type="checkbox" name="custom-switch-checkbox" class="custom-switch-input"
+                                               id="sticky_header_setting">
+                                        <span class="custom-switch-indicator"></span>
+                                        <span class="control-label p-l-10">Sticky Header</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="mt-4 mb-4 p-3 align-center rt-sidebar-last-ele">
+                                <a href="#" class="btn btn-icon icon-left btn-primary btn-restore-theme">
+                                    <i class="fas fa-undo"></i> Restore Default
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ------------------------Delete Leave Request PopUp Modal---------------------------- -->
+            <div class="modal fade" id="deleteAdressModal" aria-hidden="true" aria-labelledby="deleteAdressModalLabel2" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered modal-md">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title me-3 clrr" id="deleteAdressModalLabel2">Delete Address</h4>
+                            <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
+                                @*<span aria-hidden="true">&times;</span>*@
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="" onsubmit="">
+                                <p class="mb-3 clrr">Are You sure you want to delete this Leave Request?</p>
+                                <button type="button" id="del1" class="mt-2 reschedule-btn rounded-pill bll text-light px-3 pdd">
+                                    Delete
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ......................................Leave Request Edit Popup Modal...................................-->
+            <div class="modal fade align-items-center justify-content-center" id="editAddressModal" aria-hidden="true" aria-labelledby="editReschedule" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered vertical-align-center">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editReschedule">Leave Request</h5>
+                            <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body d-flex editRescheduleModal p-4">
+                            @*<form method="post" class="col-sm-12">
+                                    <div class="row mb-3">
+                                        <div class="col-sm-6">
+                                            <div class="form-group d-flex flex-column">
+                                                <label for="editDateModal" class="control-label fw-bold">From Date</label>
+                                                <input type="date" value="23/12/2021"  class="ht bdr2">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group d-flex flex-column">
+                                                <label for="editDateModal" class="control-label fw-bold">To Date</label>
+                                                <input type="date" value="23/12/2021"  class="ht bdr2">
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group d-flex flex-column mb-3">
+                                        <label for="reasonScheduleEdit" class="fw-bold">Reason for Leave</label>
+                                        <textarea rows="3" maxlength="500" placeholder="Reason for Leave?" class="bdr2 p-2"></textarea>
+                                    </div>
+
+                                    <button type="submit" class="btn updateBtn w-100">Save</button>
+                                </form>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- .....................................Leave Request Modal ................................... -->
+            <!--<div class="EditReschedulePopUp">
+            <div class="modal fade" id="EditReschedule" aria-hidden="true" aria-labelledby="editReschedule" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered vertical-align-center">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editReschedule">Leave Request</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body d-flex editRescheduleModal p-4">
+                            <form method="post" asp-controller="Starting" asp-action="leavesave" class="col-sm-12">
+                                <div class="row mb-3">
+                                    <div class="col-sm-6">
+                                        <div class="form-group d-flex flex-column">
+                                            <label for="editDateModal" class="control-label fw-bold">From Date</label>
+                                            <input type="date" value="23/12/2021" asp-for="fromDate" class="ht bdr2">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group d-flex flex-column">
+                                            <label for="editDateModal" class="control-label fw-bold">To Date</label>
+                                            <input type="date" value="23/12/2021" asp-for="toDate"  class="ht bdr2">
+                                        </div>
+                                    </div>
+                                </div>-->
+            <!--<div class="form-group d-flex flex-column mb-3">
+                                        <label for="reasonScheduleEdit" class="fw-bold">Reason for Leave</label>
+                                        <textarea rows="3" maxlength="500" asp-for="reason" placeholder="Reason for Leave?" class="bdr2 p-2"></textarea>
+                                    </div>
+
+                                    <button type="submit" class="btn updateBtn w-100">Save</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>-->
+            <footer class="main-footer">
+                <div class="footer-left">
+                    <a href="templateshub.net" class="text-decoration-none">Workspace</a>
+                </div>
+                <div class="footer-right">
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    < !--General JS Scripts -->
+    <script src="~/assets/js/app.min.js"></script>
+    <!-- JS Libraies -->
+    @*<script src="~/assets/bundles/apexcharts/apexcharts.min.js"></script>*@
+    <!-- Page Specific JS File -->
+    @*<script src="~/assets/js/page/index.js"></script>*@
+    <!-- Template JS File -->
+    <script src="~/assets/js/scripts.js"></script>
+    <!-- Custom JS File -->
+    <script src="~/assets/js/custom.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/datetime/1.1.2/js/dataTables.dateTime.min.js"></script>
+    <script>
+        //var table = $('#tab1').DataTable({
+        //    "aaSorting": [],
+        //    columnDefs: [{
+        //        orderable: false,
+        //        targets: [4]
+        //    }]
+        //});
+
+        $(document).on('click', ".clearBtn", function () {
+            location.reload();
+        });
+
+        var minDate, maxDate;
+        $(document).on('click', ".searchBtn", function () {
+            console.log("mindate=" + minDate);
+            console.log("maxdate=" + maxDate);
+
+            // Custom filtering function which will search data in column four between two values
+            $.fn.dataTable.ext.search.push(
+
+
+                function (settings, data, dataIndex) {
+                    minDate = $('#min').val();
+                    maxDate = $('#max').val();
+                    if (minDate == null || minDate == '') {
+                        minDate = "2000/01/01";
+                    }
+                    if (maxDate == null || maxDate == '') {
+                        maxDate = "9999/01/01";
+                    }
+
+                    var min = new Date(minDate);
+                    var max = new Date(maxDate);
+                    var date = new Date(data[1]);
+
+
+                    var tab = $('#tab1 tr').length;
+                    console.log("table length" + tab);
+
+                    console.log("min=" + min);
+                    console.log("max=" + max);
+
+
+
+
+                    if (
+                        (min === null && max === null) ||
+                        (min === null && date <= max) ||
+                        (min <= date && max === null) ||
+                        (min <= date && date <= max)
+                    ) {
+                        return true;
+                    }
+                    return false;
+                }
+            );
+
+            //table.column(3).search($("#status option:selected").val()).draw();
+            table.column(1).draw();
+            //table.column(2).draw();
+        });
+        //$(document).on('click', ".clearBtn", function () {
+        //    location.reload();
+        //});
+
+    </script>
+
+    <script>
+                                                                /*-------------------------------For deletePopUP Modal of Mysettings tab--------------------------------*/
+                                                                var i;
+                                                                $(document).on('click', '.deleteMenu', function() {
+                                                            i = parseInt($(this).attr("srid"));
+                                                            console.log(i);
+
+});
+
+
+                                                                $(document).on('click', '#del1', function() {
+                                                            console.log(i);
+
+                                                                    $.ajax({
+                                                            url: '@Url.Action("deleteTab", "Starting")',
+                                                                        type: 'post',
+                                                                        data: { i: i},
+
+                                                                        success: function(resp) {
+                                                                        $('body').removeClass('modal-open'); //remove modal-open from body in case you see faded background
+                                                                        $('.modal-backdrop').remove();       // remove modal-backdrop at the end of page in case you see faded background
+                                                                    @*$("#myAddressesMenu").html("Updating Addresses...")
+                .load('@Url.Action("addressMenu", "Starting")');*@
+                                                                    /*alert("Leave Request Cancelled");*/
+                                                                    location.reload();
+                                                                },
+                                                                        error: function(err) {
+                                                                    alert("Error while inserting data");
+                                                                }
+
+                                                            });
+
+});
+    </script>
+   
+    <script>
+                                                                $('.adddetails').click(function() {
+                                                            console.log('hello');
+                                                            var ii = parseInt($(this).attr("srid"));
+                                                            console.log(ii);
+
+                                                                    $.ajax({
+                                                            url: '@Url.Action("getleavedata", "Starting")',
+                                                                        type: 'get',
+                                                                        dataType: 'html',
+                                                                        contentType: 'application/html',
+                                                                        data: { id: ii },
+
+                                                                        success: function(resp) {
+                                                                            $("#editAddressModal .modal-body").html(resp);
+                                                                            $("#editAddressModal").modal('show');
+                                                                },
+                                                                        error: function(err) {
+                                                                    alert("Error while fetching data");
+                                                                }
+                                                            });
+});
+                                                                // For getting the values from db of leave request i.e) GET METHOD
+                                                            @*$(document).on('click', '.adddetails', function () {
+            var i = parseInt($(this).attr("srid"));
+            console.log(i);
+
+            $.ajax({
+                url: @Url.Action("getleavedata", "Starting"),
+                type: 'get',
+                dataType: 'html',
+                contentType: 'application/html',
+                data: { i: i },
+
+                success: function (resp) {
+                    $("#editAddressModal .modal-body").html(resp);
+                    $("#editAddressModal").modal();
+                },
+                error: function (err) {
+                    alert("Error while fetching data");
+                }
+            });
+        });*@
+    </script>
+
+    <script>
+                                                                // For updating the leave request in db i.e) POST METHOD
+                                                                $(document).on("click", "#t6", function() {
+                                                            var change = { };
+
+                                                            change.leaveid = parseInt($("#add11").val());
+                                                            change.fromDate = $("#t1").val();
+                                                            change.toDate = $("#t2").val();
+                                                            change.reason = $("#t3").val();
+
+                                                            console.log(change);
+
+                                                                    $.ajax({
+                                                            url: '@Url.Action("updateleave","Starting")',
+                                                                        type: 'post',
+                                                                        dataType: 'json',
+                                                                        contentType: 'application/json',
+                                                                        data: JSON.stringify(change),
+
+                                                                        success: function(resp) {
+                                                                    //debugger;
+                                                                    console.log(resp);
+                                                                            $('body').removeClass('modal-open');
+                                                                            $('.modal-backdrop').remove();
+                                                                    //$(document).load('@Url.Action("leavepage", "Starting")');
+                                                                    //window.location.replace("https://www.google.com/");
+                                                                    //window.location.href = '@Url.Action("leavepage", "Starting")';
+                                                                    @*$("#tab1").html("Updating....")
+                .load('@Url.Action("leavepage", "Starting")');*@
+                                                                /*return JavaScript("window.location = 'leavepage'");*/
+                                                                alert("Leave Request Updated");
+                                                                /*location.reload();*/
+                                                            },
+                                                            error: function (err) {
+                                                            console.log(err);
+                                                            alert("Error while inserting data");
+                                                            }
+                                                            });
+                                                            });
+    </script>
+    <script>
+        $(document).on('click', '#abc', function () {
+            $('#xyz').reset();
+            //$('#min').val(new Date("01-01-0001 12:00:00 AM"));
+            $('.searchBtn').click();
+        });
+
+
+    </script>
+</body>
+    
+</html>

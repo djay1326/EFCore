@@ -1,0 +1,54 @@
+﻿@model IEnumerable<project.Models.leave>
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+<table class="table table-hover mb-0" id="tab1">
+    <thead>
+        <tr class="vw-100">
+            <th>#</th>
+            <th>From</th>
+            <th>To</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+
+            <tr>
+                <td>@item.leaveid</td>
+                <td>@item.fromDate.Value.ToShortDateString()</td>
+                <td>@item.toDate.Value.ToShortDateString()</td>
+                <td>
+                    @if (item.statusid == 1)
+                    {
+                    
+                        <span class="pending">Pending</span>
+                    
+                    }
+
+                    </td>
+                    <td>
+                        <a role="button">
+                            <img src="~/assets/img/edit-icon.png" srid="@item.leaveid" class="adddetails" title="Edit" alt="" height="22" width="22" />
+                        </a>
+                        <a href="#deleteAdressModal" data-toggle="modal" role="button" srid="@item.leaveid" class="deleteMenu">
+                            <img src="~/assets/img/delete-icon.png" title="Delete" alt="" height="22" width="22">
+                        </a>
+                    </td>
+                </tr>
+
+            }
+    </tbody>
+    <tfoot class="d-none">
+        <tr>
+            <th>#</th>
+            <th>From</th>
+            <th>To</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </tfoot>
+</table>

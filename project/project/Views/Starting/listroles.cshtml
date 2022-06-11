@@ -1,0 +1,44 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model List<Microsoft.AspNetCore.Identity.IdentityRole<int>> 
+@{
+    
+}
+
+<h1>All Roles</h1>
+@if (Model.Any())
+ {
+    foreach(var role in Model)
+                {
+        
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            Role Id : @role.Id
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">@role.Name</h5> 
+                        </div>
+                        @*@if (role.Id > 1)
+                        {}*@
+                        
+                        <div class="card-footer">
+                            <a class="btn btn-primary" asp-controller="Starting" asp-action="editrole" asp-route-id="@role.Id">Edit</a>
+                        </div>
+                        
+                    </div>
+                }
+ }
+else
+ {
+    <div class="card">
+        <div class="card-header">
+            No roles created yet.
+        </div>
+        @*<div class="card-body">
+            <h5 class="card-title">
+
+            </h5>
+        </div>*@
+    </div>
+ }

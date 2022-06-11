@@ -1,0 +1,28 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model IEnumerable<project.Models.holidays>
+@{
+    Layout = null;
+}
+
+<table class="table table-hover mb-0 overflow-hidden" id="tab1">
+    <thead>
+        <tr class="vw-100">
+            <th>#</th>
+            <th>Holiday</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.holiday</td>
+                <td>@item.onDate.ToShortDateString()</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<button type="submit" id="s1" class="btn btn-close btn-primary okaybtn w-100" data-bs-dismiss="modal">Ok</button>

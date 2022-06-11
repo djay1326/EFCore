@@ -1,0 +1,68 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model project.ViewModels.ResetPasswordModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="~/images/favicon_img.png" rel="shortcut icon" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="~/css/userNewAccount.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+    <title>Forgot Password</title>
+</head>
+
+<body>
+    <div class="header1" id="topheader">
+        <nav class="navbar navbar-expand-xl navbar-light" style="background-color: #525252; height: 70px;" id="tp">
+            @*<a class="navbar-brand" href="homepage.html">
+                <img src="~/images/white-logo-transparent-background.png" style="width: 73px; height: 54px;">
+            </a>*@
+        </nav>
+        <div class="prices_heading position-relative">
+            <h1 class="font-weight-bold">Reset Password</h1>
+            <div class="prices_box">
+                <div class="left_line"></div>
+                <img src="~/images/separator.png" alt="" />
+                <div class="right_line"></div>
+            </div>
+        </div>
+        <div class="my-5">
+            <form method="post" asp-controller="Starting" asp-action="resetpwd" class="createNewAccount">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1" class="font-weight-bold" style="color: #4f4f4f">New Password</label>
+                    <input type="password" asp-for="Password" class="form-control" aria-describedby="emailHelp" placeholder="Password">
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail2" class="font-weight-bold" style="color: #4f4f4f">Confirm Password</label>
+                    <input type="password" asp-for="ConfirmPassword" class="form-control" aria-describedby="emailHelp" placeholder="Confirm Pwd.">
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+                <input type="hidden" asp-for="Id" class="form-control" />
+                <input type="hidden" asp-for="Email" class="form-control" />
+                <input type="hidden" asp-for="Token" class="form-control" />
+                @*<input type="hidden" asp-for="UserId">*@
+                <div class="text-center mt-4">
+                    <button class="btn submitButton text-light rounded-pill" id="registerButton">Reset</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js" integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2" crossorigin="anonymous"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+
+</html>

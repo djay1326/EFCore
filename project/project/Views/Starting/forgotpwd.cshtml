@@ -1,0 +1,95 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model project.ViewModels.ForgotPasswordViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="images/favicon_img.png" rel="shortcut icon" type="image/x-icon">
+    @*<link rel="stylesheet" type="text/css" href="css/userNewAccount.css">*@
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+    <title>Forgot Password</title>
+    <style>
+        body {
+            background-image: linear-gradient(to right, #DECBA4, #3E5151);
+        }
+        #loginPopup .modal-content {
+            padding: 20px;
+            padding-top: 0;
+            color: #646464;
+        }
+
+        .emaill {
+            padding: 5px 40px 5px 15px;
+            width: 100%;
+        }
+
+        .brdr {
+            height: 46px;
+            border: 1px solid #e1e1e1;
+        }
+
+        .loginPopup .form-group img {
+            position: absolute;
+            left: auto;
+            right: 10px;
+            top: 10px;
+        }
+
+        .submitButton {
+            padding: 15px 30px !important;
+            background-color: #1d7a8c !important;
+        }
+
+        .forgotPwd {
+            color: #1d7a8c;
+            text-decoration: none;
+        }
+
+        .abb {
+            height: 20px;
+            width: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="align-items-center justify-content-center" style="margin-top: 175px" id="forgotPasswordModal" aria-hidden="true" aria-labelledby="forgotPasswordModalLabel2" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-md align-items-center">
+            <div class="modal-content ">
+                <div class="modal-header">
+                    <h4 class="modal-title me-3" id="forgotPasswordModalLabel2">Forgot Password</h4>
+
+                </div>
+                <div class="modal-body ">
+                    <form method="post" asp-action="ForgotPassword" asp-controller="Starting">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="d-flex mb-3">
+                            <input type="email" placeholder="Email Address" asp-for="Email" class="emaill brdr">
+                            @*<span asp-validation-for="Email" class="text-danger"></span>*@
+                        </div>
+                        <button type="submit" class="my-3 btn submitButton text-light w-100 rounded-pill">
+                            Submit
+                        </button>
+                    </form>
+                    <div class="text-center mt-2">
+                        <span class="text-black">Remember Password?</span>
+                        <a class="forgotPwd text-decoration-none" asp-controller="Starting" asp-action="Index">Login now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+</body>
+</html>

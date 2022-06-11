@@ -1,0 +1,252 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.navbar{
+    background-color: #1fb6ff !important;
+    padding: 0;
+    height: fit-content;
+    min-height: 61px;
+}
+.nameTag{
+    font-family:Roboto,Verdana,sans-serif;
+    font-size: 37.5px;
+}
+.clr{
+    color: #1fb6ff;
+}
+.sideNav{
+    width: 273px;
+}
+.offcanvas{
+    top: 61px;
+}
+.offcanvas-body{
+    padding: 0;
+    color: grey;
+}
+.offcanvas-body p{
+    border-bottom: 1px solid #e5e5e5;
+    padding: 10px;
+}
+.ca{
+    color: grey;
+}
+.userManagementBlock{
+    padding: 20px;
+    background-color: #f2f4f5;
+    min-height: calc(100vh - 61px);
+}
+.managee h1{
+    font-size: 22px;
+    font-weight: 700;
+    color: #646464;
+    padding: 10px 0;
+}
+.managee a{
+    background-color: #1fb6ff;
+    padding: 12px 15px;
+    border-radius: 4px;
+    font-size: 14px;
+}
+.f49{
+    max-width: 57px;
+}
+.blockb1{
+    width: 200px;
+}
+.blockb2{
+    width : 200px !important;
+}
+.da {
+   font-size: 16px;
+   color: grey;
+}
+.inputBlock{
+    background-color: #fff;
+    padding: 20px 15px;
+    border: 1px solid #e1e1e1;
+}
+.inputBlock1{
+    /* height: 46px; */
+    /* flex-wrap: wrap; */
+    /* min-width: fit-content; */
+    list-style: none;
+    margin-bottom: -15px;
+    padding-left: 0;
+}
+.inputBlock1 li{
+    display: inline-block;
+}
+.gapp{
+    margin: 0 9px;
+}
+.gapp4 {
+    margin: 0 7px;
+    width: 147px;
+}
+.inputBlock1 input , select{
+    padding: 13px 10px;
+    border: 1px solid #dedddd;
+    max-height: 46px;
+    border-radius: 4px;
+}
+
+.searchBtn{
+    padding: 11px 15px;
+    background-color: #1fb6ff;
+    border: none;
+    min-width: 100px;
+    border-radius: 4px;
+}
+.clearBtn{
+    padding: 11px 15px;
+    border: none;
+    min-width: 100px;
+    border-radius: 4px;
+}
+.dropDownBtn{
+    background-color: transparent;
+    border: none;
+    color: black;
+    outline: none;
+}
+.Mainnn{
+    overflow-x: auto;
+    border: 1px solid #e1e1e1;
+}
+.za{
+    font-size: 18px;
+  color: grey;
+  font-weight: bold;
+}
+.rowww {
+  font-size: 16px;
+  font-weight: 450;
+  color: grey;
+}
+.activee{
+    color: white;
+    background-color: #67b644;
+    padding: 5px 14px;
+}
+.inActivee{
+    color: white;
+    background-color: #ff6b6b;
+    padding: 5px 10px;
+}
+table{
+    border: 1px solid #e1e1e1;
+    background-color: #fff;
+    width: 100%;
+    min-width: 900px;
+}
+thead{
+    background-color: #f9f9f9;
+    line-height: 50px;
+}
+tbody{
+    border-top: none !important;
+}
+td{
+    font-size: 16px;
+    vertical-align: middle;
+}
+
+@media (min-width: 1200px){
+    .offcanvas{
+        visibility: visible;
+    }
+    .offcanvas-start{
+        transform: translate(0%);
+    }
+    .offcanvas-backdrop {
+        display: none;
+    }
+    .userManagementBlock{
+        padding-left: 296px;
+    }
+}
+
+@media (max-width: 768px){
+    .navbar .container-fluid{
+        flex-direction: column;
+        padding: 10px 12px;
+    }
+    .b11{
+        float: left;
+        width: 100%;
+    }
+    .b22{
+        justify-content: flex-end;
+        width: 100%;
+    }
+}
+@media (max-width: 425px){
+    .managee{
+        flex-direction: column;
+    }
+}
+/*.........footer.......*/
+.lt{
+    color: #646464; 
+    font-size: 14px;
+    text-align: right;   
+}
+
+/*.....show part.....*/
+.va {
+  color: grey;
+}
+.bdrr {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 38px;
+  aspect-ratio: 1;
+  border: 1px solid lightgrey;
+  
+}
+
+.bdrr1 {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  background: #565656;
+  width: 38px;
+  aspect-ratio: 1;
+  border: 1px solid white;
+ 
+}
+
+.bdrr2>* {
+  transform: rotate(180deg);
+}
+
+.drp {
+  border-radius: 4px;
+  border: 1px solid darkgrey;
+  height: 38px;
+  width: 65px;
+  background: var(--clr-white);
+  color: var(--clr-64-grey);
+
+}
+
+/*..............*/
+.page-item.active .page-link {
+    z-index: 3;
+    /*color: #fff;*/
+    background-color: #6777EF !important;
+    border-color: #6777EF;
+}
+
+div.dataTables_wrapper div.dataTables_info {
+    padding-top: 0 !important;
+    font-family: Roboto !important;
+    color: grey !important;
+    margin-bottom: 10px;
+}

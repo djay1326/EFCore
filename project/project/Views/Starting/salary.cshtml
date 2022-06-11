@@ -1,0 +1,1139 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<User> signInManager
+@*@model PaginatedList<project.Models.salary>*@
+@model IEnumerable<project.Models.salary>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- index.html  21 Nov 2019 03:44:50 GMT -->
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+    <title>Workspace</title>
+    <!-- General CSS Files -->
+    <link rel="stylesheet" href="~/assets/css/app.min.css">
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="~/assets/css/style.css">
+    <link rel="stylesheet" href="~/assets/css/components.css">
+    <!-- Custom style CSS -->
+    <link rel="stylesheet" href="~/assets/css/custom.css">
+    <link href="~/assets/css/manage.css" rel="stylesheet" />
+    <link rel='shortcut icon' type='image/x-icon' href='~/assets/img/favicon.ico' />
+    <link rel="stylesheet" type="text/css" href="http://www.shieldui.com/shared/components/latest/css/light/all.min.css" />
+    @*<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">*@
+
+    @*<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">*@
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap4.min.css">
+    <script src="~/lib/pspdfkit.js"></script>
+    <style>
+        .ht {
+            min-height: 46px;
+            padding: 10px;
+        }
+
+        .bdr2 {
+            border: 1px solid #e1e1e1;
+            color: #646464;
+        }
+
+        label {
+            color: #646464;
+        }
+
+        .bld {
+            font-weight: 550;
+        }
+
+        .updateBtn {
+            color: white;
+            background-color: #6777EF;
+        }
+
+        .refundUp {
+            color: white;
+            background-color: #1fb6ff;
+        }
+
+        /*.def {
+            background-color: white !important;
+        }*/
+        .def {
+            background-color: darkgray !important;
+            box-shadow: 15px 9px 25px 0 rgb(0 0 0 / 10%) !important;
+        }
+
+        .bll {
+            border: 1px solid #e1e1e1;
+        }
+
+        .clrr {
+            color: #646464;
+        }
+
+        .pdd {
+            padding: 10px;
+        }
+
+        .reschedule-btn {
+            padding: 10px;
+            background-color: #6777EF;
+            font-size: 14px;
+            border: none;
+        }
+
+        .completed {
+            color: white;
+            background-color: #67b644;
+            padding: 5px 10px;
+        }
+
+        .pending {
+            color: white;
+            background-color: #1fb6ff;
+            padding: 5px 19px;
+        }
+
+        .new {
+            color: white;
+            background-color: #f2bb37;
+            padding: 5px 33px;
+        }
+
+        .cancelled {
+            color: white;
+            background-color: #ff6b6b;
+            padding: 5px 15px;
+        }
+
+        .exportButton {
+            border-radius: 0;
+        }
+
+        .ft {
+            width: 10px;
+            font-size: 25px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="loader"></div>
+    <div id="app">
+        <div class="main-wrapper main-wrapper-1">
+            <div class="navbar-bg"></div>
+            <nav class="navbar navbar-expand-lg main-navbar sticky def">
+                <div class="form-inline mr-auto">
+                    <ul class="navbar-nav mr-3">
+                        <li>
+                            <a href="#" data-toggle="sidebar" class="nav-link nav-link-lg
+									collapse-btn"> <i data-feather="align-justify"></i></a>
+                        </li>
+                        <li>
+                            <a href="#" class="nav-link nav-link-lg fullscreen-btn">
+                                <i data-feather="maximize"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <form class="form-inline mr-auto">
+                                <div class="search-element">
+                                    <input class="form-control" type="search" placeholder="Search" aria-label="Search" data-width="200">
+                                    <button class="btn" type="submit">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </div>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+                <ul class="navbar-nav navbar-right">
+                    <li class="dropdown dropdown-list-toggle">
+                        <a href="#" data-toggle="dropdown"
+                           class="nav-link nav-link-lg message-toggle">
+                            <i data-feather="mail"></i>
+                            <span class="badge headerBadge1">
+                                6
+                            </span>
+                        </a>
+                        <div class="dropdown-menu dropdown-list dropdown-menu-right pullDown">
+                            <div class="dropdown-header">
+                                Messages
+                                <div class="float-right">
+                                    <a href="#">Mark All As Read</a>
+                                </div>
+                            </div>
+                            <div class="dropdown-list-content dropdown-list-message">
+                                <a href="#" class="dropdown-item">
+                                    <span class="dropdown-item-avatar
+											text-white">
+                                        <img alt="image" src="~/assets/img/users/user-1.png" class="rounded-circle">
+                                    </span> <span class="dropdown-item-desc">
+                                        <span class="message-user">
+                                            John
+                                            Deo
+                                        </span>
+                                        <span class="time messege-text">Please check your mail !!</span>
+                                        <span class="time">2 Min Ago</span>
+                                    </span>
+                                </a> <a href="#" class="dropdown-item">
+                                    <span class="dropdown-item-avatar text-white">
+                                        <img alt="image" src="~/assets/img/users/user-2.png" class="rounded-circle">
+                                    </span> <span class="dropdown-item-desc">
+                                        <span class="message-user">
+                                            Sarah
+                                            Smith
+                                        </span> <span class="time messege-text">
+                                            Request for leave
+                                            application
+                                        </span>
+                                        <span class="time">5 Min Ago</span>
+                                    </span>
+                                </a> <a href="#" class="dropdown-item">
+                                    <span class="dropdown-item-avatar text-white">
+                                        <img alt="image" src="~/assets/img/users/user-5.png" class="rounded-circle">
+                                    </span> <span class="dropdown-item-desc">
+                                        <span class="message-user">
+                                            Jacob
+                                            Ryan
+                                        </span> <span class="time messege-text">
+                                            Your payment invoice is
+                                            generated.
+                                        </span> <span class="time">12 Min Ago</span>
+                                    </span>
+                                </a> <a href="#" class="dropdown-item">
+                                    <span class="dropdown-item-avatar text-white">
+                                        <img alt="image" src="~/assets/img/users/user-4.png" class="rounded-circle">
+                                    </span> <span class="dropdown-item-desc">
+                                        <span class="message-user">
+                                            Lina
+                                            Smith
+                                        </span> <span class="time messege-text">
+                                            hii John, I have upload
+                                            doc
+                                            related to task.
+                                        </span> <span class="time">
+                                            30
+                                            Min Ago
+                                        </span>
+                                    </span>
+                                </a> <a href="#" class="dropdown-item">
+                                    <span class="dropdown-item-avatar text-white">
+                                        <img alt="image" src="~/assets/img/users/user-3.png" class="rounded-circle">
+                                    </span> <span class="dropdown-item-desc">
+                                        <span class="message-user">
+                                            Jalpa
+                                            Joshi
+                                        </span> <span class="time messege-text">
+                                            Please do as specify.
+                                            Let me
+                                            know if you have any query.
+                                        </span> <span class="time">
+                                            1
+                                            Days Ago
+                                        </span>
+                                    </span>
+                                </a> <a href="#" class="dropdown-item">
+                                    <span class="dropdown-item-avatar text-white">
+                                        <img alt="image" src="~/assets/img/users/user-2.png" class="rounded-circle">
+                                    </span> <span class="dropdown-item-desc">
+                                        <span class="message-user">
+                                            Sarah
+                                            Smith
+                                        </span> <span class="time messege-text">Client Requirements</span>
+                                        <span class="time">2 Days Ago</span>
+                                    </span>
+                                </a>
+                            </div>
+                            <div class="dropdown-footer text-center">
+                                <a href="#">View All <i class="fas fa-chevron-right"></i></a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="dropdown dropdown-list-toggle">
+                        <a href="#" data-toggle="dropdown"
+                           class="nav-link notification-toggle nav-link-lg">
+                            <i data-feather="bell" class="bell"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-list dropdown-menu-right pullDown">
+                            <div class="dropdown-header">
+                                Notifications
+                                <div class="float-right">
+                                    <a href="#">Mark All As Read</a>
+                                </div>
+                            </div>
+                            <div class="dropdown-list-content dropdown-list-icons">
+                                <a href="#" class="dropdown-item dropdown-item-unread">
+                                    <span class="dropdown-item-icon bg-primary text-white">
+                                        <i class="fas
+												fa-code"></i>
+                                    </span> <span class="dropdown-item-desc">
+                                        Template update is
+                                        available now! <span class="time">
+                                            2 Min
+                                            Ago
+                                        </span>
+                                    </span>
+                                </a> <a href="#" class="dropdown-item">
+                                    <span class="dropdown-item-icon bg-info text-white">
+                                        <i class="far
+												fa-user"></i>
+                                    </span> <span class="dropdown-item-desc">
+                                        <b>You</b> and <b>
+                                            Dedik
+                                            Sugiharto
+                                        </b> are now friends <span class="time">
+                                            10 Hours
+                                            Ago
+                                        </span>
+                                    </span>
+                                </a> <a href="#" class="dropdown-item">
+                                    <span class="dropdown-item-icon bg-success text-white">
+                                        <i class="fas
+												fa-check"></i>
+                                    </span> <span class="dropdown-item-desc">
+                                        <b>Kusnaedi</b> has
+                                        moved task <b>Fix bug header</b> to <b>Done</b> <span class="time">
+                                            12
+                                            Hours
+                                            Ago
+                                        </span>
+                                    </span>
+                                </a> <a href="#" class="dropdown-item">
+                                    <span class="dropdown-item-icon bg-danger text-white">
+                                        <i class="fas fa-exclamation-triangle"></i>
+                                    </span> <span class="dropdown-item-desc">
+                                        Low disk space. Let's
+                                        clean it! <span class="time">17 Hours Ago</span>
+                                    </span>
+                                </a> <a href="#" class="dropdown-item">
+                                    <span class="dropdown-item-icon bg-info text-white">
+                                        <i class="fas
+												fa-bell"></i>
+                                    </span> <span class="dropdown-item-desc">
+                                        Welcome to Otika
+                                        template! <span class="time">Yesterday</span>
+                                    </span>
+                                </a>
+                            </div>
+                            <div class="dropdown-footer text-center">
+                                <a href="#">View All <i class="fas fa-chevron-right"></i></a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" data-toggle="dropdown"
+                           class="nav-link dropdown-toggle nav-link-lg nav-link-user">
+                            <img alt="image" src="~/assets/img/user.png"
+                                 class="user-img-radious-style"> <span class="d-sm-none d-lg-inline-block"></span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right pullDown">
+
+                            @if (signInManager.IsSignedIn(User))
+                            {
+                                <div class="dropdown-title">Hello, @User.Identity.Name </div>
+                            }
+                            else
+                            {
+                                <div class="dropdown-title">Login First </div>
+                            }
+                            <a href="profile.html" class="dropdown-item has-icon">
+                                <i class="far
+										fa-user"></i> Profile
+                            </a>
+
+                            <a asp-controller="Starting" asp-action="listroles" class="dropdown-item has-icon">
+                                <i class="fas fa-bolt"></i>
+                                Manage Roles
+                            </a>
+                            <a href="#" class="dropdown-item has-icon">
+                                <i class="fas fa-cog"></i>
+                                Settings
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            @*<a href="auth-login.html" class="dropdown-item has-icon text-danger">
+                            <i class="fas fa-sign-out-alt"></i>
+                            Logout
+                        </a>*@
+
+                            @if (signInManager.IsSignedIn(User))
+                            {
+                                <form method="post" asp-controller="Starting" asp-action="logout">
+                                    <button type="submit" class="dropdown-item has-icon text-danger border-0" @*asp-controller="Starting" asp-action="logout"*@>
+                                        <i class="fas fa-sign-out-alt mt-2"></i>
+                                        Logout
+                                    </button>
+                                </form>
+                                @*<form method="post" asp-controller="Starting" asp-action="logout">
+                                <button type="submit" class="nav-link btn btn-link nav-btn-item text-decoration-none p-3 m-3" style="width:auto">
+                                    Logout @User.Identity.Name
+                                </button>
+                            </form>*@
+                            }
+                            @*else
+                        {
+                            <li class="nav-item mt-4">
+                                <div class="nav-btn">
+                                    <a class="nav-btn-item text-decoration-none p-3 m-3" asp-controller="Starting" asp-action="Index">Login</a>
+                                </div>
+                            </li>
+
+                        }*@
+
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+            <div class="main-sidebar sidebar-style-2">
+                <aside id="sidebar-wrapper">
+                    <div class="sidebar-brand">
+                        <a asp-controller="Starting" asp-action="homepage">
+                            <img alt="image" src="~/assets/img/logo.png" class="header-logo" /> <span class="logo-name">Workspace</span>
+                        </a>
+                    </div>
+                    <ul class="sidebar-menu">
+                        <li class="menu-header">Main</li>
+                        <li class="dropdown ">
+                            <a asp-controller="Starting" asp-action="homepage" class="nav-link"><i data-feather="monitor"></i><span>Dashboard</span></a>
+                        </li>
+                        @*<li class="dropdown">
+            <a href="#" class="menu-toggle nav-link has-dropdown">
+                <i data-feather="briefcase"></i><span>Widgets</span>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a class="nav-link" href="widget-chart.html">Chart Widgets</a></li>
+                <li><a class="nav-link" href="widget-data.html">Data Widgets</a></li>
+            </ul>
+        </li>*@
+                        <li class="dropdown ">
+                            <a asp-controller="Starting" asp-action="leavepage" class="nav-link "><i data-feather="command"></i><span>Leave</span></a>
+                            @*<ul class="dropdown-menu">
+                <li><a class="nav-link" href="chat.html">Chat</a></li>
+                <li><a class="nav-link" href="portfolio.html">Portfolio</a></li>
+                <li><a class="nav-link" href="blog.html">Blog</a></li>
+                <li><a class="nav-link" href="calendar.html">Calendar</a></li>
+            </ul>*@
+                        </li>
+                        <li class="dropdown active">
+                            <a asp-controller="Starting" asp-action="salary" class="nav-link "><i data-feather="mail"></i><span>Salary</span></a>
+                            @*<ul class="dropdown-menu">
+                <li><a class="nav-link" href="email-inbox.html">Inbox</a></li>
+                <li><a class="nav-link" href="email-compose.html">Compose</a></li>
+                <li><a class="nav-link" href="email-read.html">read</a></li>
+            </ul>*@
+                        </li>
+                        @if (signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+                        {
+                            <li class="dropdown">
+                                <a asp-controller="Starting" asp-action="unassignedroles" class=" nav-link "><i data-feather="bell"></i><span>Unassigned roles</span></a>
+                            </li>
+                        }
+                        @if (signInManager.IsSignedIn(User) && User.IsInRole("Manager"))
+                        {
+                            <li class="dropdown">
+                                <a asp-controller="Starting" asp-action="addemp" class=" nav-link "><i data-feather="mail"></i><span>Add Employee</span></a>
+                            </li>
+                        }
+                    </ul>
+                </aside>
+            </div>
+            <!-- Main Content -->
+            <div class="main-content">
+                <section class="section" id="serviceHistory">
+
+                    <div class="managee d-flex justify-content-between mb-2">
+                        <h1 class="m-0">My Salary Details</h1>
+
+                        @if (User.IsInRole("Employee"))
+                        {
+                            <a id="exportBtn" href="#" role="button" class="text-white text-decoration-none exportButton" style="background: #6777EF" onclick="Export()">
+                                <img src="~/images/addNew.png" alt="" height="16" width="16">
+                                <span class="ms-1">Export</span>
+                            </a>
+                            <button class="d-none exportButton1">click me to export</button>
+                        }
+                        else @if (User.IsInRole("Manager"))
+                   {
+                    <a id="" asp-controller="Starting" asp-action="addsalary" role="button" class="text-white text-decoration-none " style="background: #6777EF">
+                        <img src="~/images/addNew.png" alt="" height="16" width="16">
+                        <span class="ms-1">Add Salary</span>
+
+                    </a>
+                    <button class="d-none exportButton1">click me to export</button>
+                }
+                else @if (User.IsInRole("Admin"))
+                       {
+                        <a id="" asp-controller="Starting" asp-action="addsalary" role="button" class="text-white text-decoration-none " style="background: #6777EF">
+                            <img src="~/images/addNew.png" alt="" height="16" width="16">
+                            <span class="ms-1">Add Salary</span>
+
+                        </a>
+                        <button class="d-none exportButton1">click me to export</button>
+                    }
+
+                    @*<img src="~/images/addNew.png" />*@
+                    @*<span class="ms-1"><a href="#EditReschedule" class="text-decoration-none">Add Leave Request</a></span>*@
+                    @*<button id="exportButton" class="btn btn-lg btn-danger clearfix"><span class="fa fa-file-pdf-o"></span> Export to PDF</button>*@
+                    </div>
+
+            <div class="row">
+                <div class="col-md-12 col-lg-12 col-xl-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Salary</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <form method="post" asp-controller="Starting" asp-action="salary" id="xyz" class="overflow-hidden">
+                                    <ul class="inputBlock1 mb-2">
+                                        <li>
+                                            <input type="month" value="@ViewBag.msg1" class="blockb2 gapp4 h-100 da" name="monthyear" />
+                                        </li>
+                                        <li>
+                                            <button type="submit" class="text-white gapp searchBtn h-100 mb-3" style="background: #6777EF"> Search </button>
+                                        </li>
+                                        <li>
+                                            <a asp-controller="Starting" asp-action="salaryclear">
+                                                <button type="button" id="abc" class="gapp clearBtn h-100 mb-3">Clear</button>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </form>
+                                    @*<partial name="~/Views/Shared/_loadstatus.cshtml" />*@
+                                    <table class="table table-hover mb-0 overflow-hidden exportTable" id="tab1">
+                                        <thead>
+                                            <tr class="vw-100">
+                                                <th width="50">Id</th>
+                                                <th width="100">Basic</th>
+                                                <th width="100">Tax</th>
+                                                <th width="100">Final</th>
+                                                <th width="100">Created</th>
+                                                <th width="60">Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model)
+                                            {
+                                                <tr id="parent123">
+                                                    <td class="salaryy">@item.salaryid</td>
+                                                    <td class="basicc">@item.basic</td>
+                                                    <td class="taxx">@item.tax</td>
+                                                    <td class="finall">@item.final</td>
+                                                    <td class="datee">@item.createddate.Value.ToShortDateString()</td>
+                                                    <td>
+                                                        <a id="" href="#" role="button" class="text-white text-decoration-none exportButton" style="background: #6777EF; border-radius:20px;padding:6px;">
+                                                            @*<img src="~/images/addNew.png" alt="" height="16" width="16">*@
+
+                                                            <span class="p-4 printpdf"><span class="ft">&#8595;</span> salary receipt</span>
+                                                        </a>
+                                                        @if (User.IsInRole("Admin"))
+                                                        {
+                                                            <button type="button" class="btn dropDownBtn" data-toggle="dropdown" aria-expanded="false">
+                                                                &#8942
+                                                            </button>
+                                                            <ul class="dropdown-menu dropdown-menu-end">
+                                                                <li><a  srid="@item.salaryid" class="text-decoration-none adddetails"><button class="dropdown-item" type="button">Give Increment</button></a></li>
+                                                            </ul>
+                                                        }
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                        @*<tfoot class="d-none">
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Basic Salary</th>
+                                            <th>Tax Deduct</th>
+                                            <th>Final Salary</th>
+                                            <th>Created Date</th>
+                                        </tr>
+                                    </tfoot>*@
+                                    </table>
+
+                                    @*@{
+                                    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+                                    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+                                }
+
+                                <a asp-action="salary" asp-controller="Starting"
+                                   asp-route-pageNumber="@(Model.PageIndex - 1)"
+                                   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                                   class="align-items-end btn btn-default btn-outline-primary mt-3 @prevDisabled">
+                                    Previous
+                                </a>
+                                <a asp-action="salary" asp-controller="Starting"
+                                   asp-route-pageNumber="@(Model.PageIndex + 1)"
+                                   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                                   class=" btn btn-default btn-outline-primary mt-3 @nextDisabled">
+                                    Next
+                                </a>*@
+                                @*</form>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="settingSidebar">
+            <a href="javascript:void(0)" class="settingPanelToggle">
+                <i class="fa fa-spin fa-cog"></i>
+            </a>
+            <div class="settingSidebar-body ps-container ps-theme-default">
+                <div class=" fade show active">
+                    <div class="setting-panel-header">
+                        Setting Panel
+                    </div>
+                    <div class="p-15 border-bottom">
+                        <h6 class="font-medium m-b-10">Select Layout</h6>
+                        <div class="selectgroup layout-color w-50">
+                            <label class="selectgroup-item">
+                                <input type="radio" name="value" value="1" class="selectgroup-input-radio select-layout" checked>
+                                <span class="selectgroup-button">Light</span>
+                            </label>
+                            <label class="selectgroup-item">
+                                <input type="radio" name="value" value="2" class="selectgroup-input-radio select-layout">
+                                <span class="selectgroup-button">Dark</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="p-15 border-bottom">
+                        <h6 class="font-medium m-b-10">Sidebar Color</h6>
+                        <div class="selectgroup selectgroup-pills sidebar-color">
+                            <label class="selectgroup-item">
+                                <input type="radio" name="icon-input" value="1" class="selectgroup-input select-sidebar">
+                                <span class="selectgroup-button selectgroup-button-icon" data-toggle="tooltip"
+                                      data-original-title="Light Sidebar"><i class="fas fa-sun"></i></span>
+                            </label>
+                            <label class="selectgroup-item">
+                                <input type="radio" name="icon-input" value="2" class="selectgroup-input select-sidebar" checked>
+                                <span class="selectgroup-button selectgroup-button-icon" data-toggle="tooltip"
+                                      data-original-title="Dark Sidebar"><i class="fas fa-moon"></i></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="p-15 border-bottom">
+                        <h6 class="font-medium m-b-10">Color Theme</h6>
+                        <div class="theme-setting-options">
+                            <ul class="choose-theme list-unstyled mb-0">
+                                <li title="white" class="active">
+                                    <div class="white"></div>
+                                </li>
+                                <li title="cyan">
+                                    <div class="cyan"></div>
+                                </li>
+                                <li title="black">
+                                    <div class="black"></div>
+                                </li>
+                                <li title="purple">
+                                    <div class="purple"></div>
+                                </li>
+                                <li title="orange">
+                                    <div class="orange"></div>
+                                </li>
+                                <li title="green">
+                                    <div class="green"></div>
+                                </li>
+                                <li title="red">
+                                    <div class="red"></div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="p-15 border-bottom">
+                        <div class="theme-setting-options">
+                            <label class="m-b-0">
+                                <input type="checkbox" name="custom-switch-checkbox" class="custom-switch-input"
+                                       id="mini_sidebar_setting">
+                                <span class="custom-switch-indicator"></span>
+                                <span class="control-label p-l-10">Mini Sidebar</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="p-15 border-bottom">
+                        <div class="theme-setting-options">
+                            <label class="m-b-0">
+                                <input type="checkbox" name="custom-switch-checkbox" class="custom-switch-input"
+                                       id="sticky_header_setting">
+                                <span class="custom-switch-indicator"></span>
+                                <span class="control-label p-l-10">Sticky Header</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="mt-4 mb-4 p-3 align-center rt-sidebar-last-ele">
+                        <a href="#" class="btn btn-icon icon-left btn-primary btn-restore-theme">
+                            <i class="fas fa-undo"></i> Restore Default
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        <table class="table table-hover mb-0 overflow-hidden exportTable1 d-none" id="tab1">
+            <thead>
+                <tr class="vw-100">
+                    <th width="50">Id</th>
+                    <th width="100">Basic</th>
+                    <th width="100">Tax</th>
+                    <th width="100">Final</th>
+                    <th width="100">Created</th>
+                    <th width="60">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr id="parent2">
+                    <td id="salary1"></td>
+                    <td id="basic1"></td>
+                    <td id="tax1"></td>
+                    <td id="final1"></td>
+                    <td id="date1"></td>
+                </tr>
+
+            </tbody>
+            @*<tfoot class="d-none">
+            <tr>
+                <th>#</th>
+                <th>Basic Salary</th>
+                <th>Tax Deduct</th>
+                <th>Final Salary</th>
+                <th>Created Date</th>
+            </tr>
+        </tfoot>*@
+        </table>
+
+        <!-- ......................................Give Increment Popup Modal...................................-->
+        <div class="modal fade align-items-center justify-content-center" id="editAddressModal" aria-hidden="true" aria-labelledby="editReschedule" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered vertical-align-center">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editReschedule">Increment</h5>
+                        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body d-flex editRescheduleModal p-4">
+                        @*<form method="post" class="col-sm-12">
+            <div class="row mb-3">
+                <div class="col-sm-6">
+                    <div class="form-group d-flex flex-column">
+                        <label for="editDateModal" class="control-label fw-bold">From Date</label>
+                        <input type="date" value="23/12/2021"  class="ht bdr2">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group d-flex flex-column">
+                        <label for="editDateModal" class="control-label fw-bold">To Date</label>
+                        <input type="date" value="23/12/2021"  class="ht bdr2">
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-group d-flex flex-column mb-3">
+                <label for="reasonScheduleEdit" class="fw-bold">Reason for Leave</label>
+                <textarea rows="3" maxlength="500" placeholder="Reason for Leave?" class="bdr2 p-2"></textarea>
+            </div>
+
+            <button type="submit" class="btn updateBtn w-100">Save</button>
+        </form>*@
+                        <button type="button" id="t5" class="btn updateBtn w-100 verify">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="main-footer">
+            <div class="footer-left">
+                <a href="templateshub.net" class="text-decoration-none">Workspace</a>
+            </div>
+            <div class="footer-right">
+            </div>
+        </footer>
+        </div>
+    </div>
+    <!-- General JS Scripts -->
+    <script src="~/assets/js/app.min.js"></script>
+
+    <!-- Template JS File -->
+    <script src="~/assets/js/scripts.js"></script>
+    <!-- Custom JS File -->
+    <script src="~/assets/js/custom.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/jquery.table2excel.min.js"></script>
+    <script type="text/javascript" src="http://www.shieldui.com/shared/components/latest/js/shieldui-all.min.js"></script>
+    <script type="text/javascript" src="http://www.shieldui.com/shared/components/latest/js/jszip.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
+    <!-- Automatically provides/replaces `Promise` if missing or broken. -->
+    <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.1/html2canvas.min.js"></script>*@
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+
+    <script>
+        $(".printpdf").click(function () {
+            //var element = document.getElementsByClassName("pdf");
+            //var element = document.getElementById("parent");
+            //html2pdf().from(element).set({
+            //    margin: [30, 10, 5, 10],
+            //    filename: 'Salary Invoice.pdf',
+            //    pagebreak: { avoid: 'tr' },
+            //    jsPDF: { orientation: 'portrait', unit: 'pt', format: 'letter', compressPDF: true }
+            //}).save()
+            var data = {};
+            var init = $(this).parent().parent().siblings(".salaryy").text();
+            //console.log($(this).parent());
+            console.log(init);
+            data.Id = $(this).parent().parent().siblings(".salaryy").text();
+            data.Basic = $(this).parent().parent().siblings(".basicc").text();
+            data.Tax = $(this).parent().parent().siblings(".taxx").text();
+            data.Final = $(this).parent().parent().siblings(".finall").text();
+            data.CreatedDate = $(this).parent().parent().siblings(".datee").text();
+            console.log(data);
+            $('#salary1').html(data.Id);
+            $('#basic1').html(data.Basic);
+            $('#tax1').html(data.Tax);
+            $('#final1').html(data.Final);
+            $('#date1').html(data.CreatedDate);
+
+            $(".exportButton1").click();
+        });
+
+        jQuery(function ($) {
+
+            $(".exportButton1").click(function () {
+                console.log("clicked");
+                // parse the HTML table element having an id=exportTable
+                var dataSource = shield.DataSource.create({
+                    data: ".exportTable1",
+                    schema: {
+                        type: "table",
+                        fields: {
+                            Id: { type: Number },
+                            Basic: { type: Number },
+                            Tax: { type: Number },
+                            Final: { type: Number },
+                            Created: { type: Date.toString("dd-MM-yyyy") }
+                        }
+                    }
+                });
+
+                // when parsing is done, export the data to PDF
+                dataSource.read().then(function (data) {
+                    var pdf = new shield.exp.PDFDocument({
+                        author: "PrepBootstrap",
+                        created: new Date()
+                    });
+
+                    pdf.addPage("a4", "portrait");
+
+                    pdf.table(
+                        50,
+                        50,
+                        data,
+                        [
+                            { field: "Id", title: "Salary Id", width: 60 },
+                            { field: "Basic", title: "Basic Salary", width: 105 },
+                            { field: "Tax", title: "Tax Deduct", width: 105 },
+                            { field: "Final", title: "Final Salary", width: 105 },
+                            { field: "Created", title: "Created Date", width: 110 }
+                        ],
+                        {
+                            margins: {
+                                top: 50,
+                                left: 30,
+                                right: 20
+                            }
+                        }
+                    );
+
+                    pdf.saveAs({
+                        fileName: "Salary : " + new Date().toISOString().replace(/[\-\:\.]/g, "") + ".pdf"
+                    });
+                });
+            });
+        });
+    </script>
+    @*<script>
+            $("#printpdf").click(function () {
+                var doc = new jspdf.jsPDF();
+
+                // Simple data example
+                var head = [['ID', 'Basic Salary', 'Tax amount', 'Final Salary', 'Date']];
+                var body = document.getElementsByClassName("pdf");
+                doc.autoTable({ head: head, body: body });
+
+                // Simple html example
+                doc.autoTable({ html: '#table' });
+
+                doc.save('Salary Invoice.pdf');
+            });
+        </script>*@
+
+    <script>
+        //var table = $('#tab1').DataTable({
+        //    "aaSorting": [],
+        //    columnDefs: [{
+        //        orderable: false,
+        //        targets: [4]
+        //    }]
+        //});
+
+        $(document).on('click', ".clearBtn", function () {
+            location.reload();
+        });
+
+        var minDate, maxDate;
+        $(document).on('click', ".searchBtn", function () {
+            console.log("mindate=" + minDate);
+            console.log("maxdate=" + maxDate);
+
+            // Custom filtering function which will search data in column four between two values
+            $.fn.dataTable.ext.search.push(
+
+
+                function (settings, data, dataIndex) {
+                    minDate = $('#min').val();
+                    maxDate = $('#max').val();
+                    if (minDate == null || minDate == '') {
+                        minDate = "2000/01/01";
+                    }
+                    if (maxDate == null || maxDate == '') {
+                        maxDate = "9999/01/01";
+                    }
+
+                    var min = new Date(minDate);
+                    var max = new Date(maxDate);
+                    var date = new Date(data[1]);
+
+
+                    var tab = $('#tab1 tr').length;
+                    console.log("table length" + tab);
+
+                    console.log("min=" + min);
+                    console.log("max=" + max);
+
+
+
+
+                    if (
+                        (min === null && max === null) ||
+                        (min === null && date <= max) ||
+                        (min <= date && max === null) ||
+                        (min <= date && date <= max)
+                    ) {
+                        return true;
+                    }
+                    return false;
+                }
+            );
+
+            //table.column(3).search($("#status option:selected").val()).draw();
+            table.column(1).draw();
+            //table.column(2).draw();
+        });
+        //$(document).on('click', ".clearBtn", function () {
+        //    location.reload();
+        //});
+
+    </script>
+    <script>
+        //$(function () {
+        //    $("#exportBtn").click(function (e) {
+        //        var table = $("#just");
+        //        if (table && table.length) {
+        //            $(table).table2excel({
+        //                exclude: ".noExl",
+        //                name: "Excel Document Name",
+        //                filename: "Salary :" + new Date().toISOString().replace(/[\-\:\.]/g, "") + ".xls",
+        //                fileext: ".xls",
+        //                exclude_img: true,
+        //                exclude_links: true,
+        //                exclude_inputs: true,
+        //                preserveColors: false
+        //            });
+        //        }
+        //    });
+
+        //});
+    </script>
+    <script type="text/javascript">
+        //jQuery(function ($) {
+            
+        //    $(".exportButton1").click(function () {
+        //        console.log("clicked");
+        //        // parse the HTML table element having an id=exportTable
+        //        var dataSource = shield.DataSource.create({
+        //            data: ".exportTable1",
+        //            schema: {
+        //                type: "table",
+        //                fields: {
+        //                    Id: { type: Number },
+        //                    Basic: { type: Number },
+        //                    Tax: { type: Number },
+        //                    Final: { type: Number },
+        //                    Created: { type: Date }
+        //                }
+        //            }
+        //        });
+
+        //        // when parsing is done, export the data to PDF
+        //        dataSource.read().then(function (data) {
+        //            var pdf = new shield.exp.PDFDocument({
+        //                author: "PrepBootstrap",
+        //                created: new Date()
+        //            });
+
+        //            pdf.addPage("a4", "portrait");
+
+        //            pdf.table(
+        //                50,
+        //                50,
+        //                data,
+        //                [
+        //                    { field: "Id", title: "Salary Id", width: 60 },
+        //                    { field: "Basic", title: "Basic Salary", width: 105 },
+        //                    { field: "Tax", title: "Tax Deduct", width: 105 },
+        //                    { field: "Final", title: "Final Salary", width: 105 },
+        //                    { field: "Created", title: "Created Date", width: 110 }
+        //                ],
+        //                {
+        //                    margins: {
+        //                        top: 50,
+        //                        left: 30,
+        //                        right: 20
+        //                    }
+        //                }
+        //            );
+
+        //            pdf.saveAs({
+        //                fileName: "Salary : " + new Date().toISOString().replace(/[\-\:\.]/g, "") + ".pdf"
+        //            });
+        //        });
+        //    });
+        //});
+    </script>
+    <script type="text/javascript">
+        function Export() {
+            html2canvas(document.getElementById('tab1'), {
+                onrendered: function (canvas) {
+                    var data = canvas.toDataURL();
+                    var docDefinition = {
+                        content: [{
+                            image: data,
+                            width: 500
+                        }]
+                    };
+                    pdfMake.createPdf(docDefinition).download("Salary :" + new Date().toISOString().replace(/[\-\:\.]/g, "") + ".pdf");
+                }
+            });
+        }
+    </script>
+    @*<script type="text/javascript">
+            $(function () {
+                $("#date").datepicker({ dateFormat: 'yy' });
+            });
+        </script>*@
+    @*<script>
+            $(document).on('click', ".saveBtn1", function () {
+                console.log('hie');
+                var savesalarydb = {};
+                savesalarydb.username = $("#select2 option:selected").text();
+                savesalarydb.date = $("#s2").val();
+                savesalarydb.basic = $("#s3").val();
+                savesalarydb.tax = $("#s4").val();
+                savesalarydb.final = savesalarydb.basic - savesalarydb.tax;
+                console.log(savesalarydb);
+                $.ajax({
+                    url: '@Url.Action("savesalary", "Starting")',
+                    type: 'post',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    data: JSON.stringify(savesalarydb),
+
+                    success: function (resp) {
+                        alert("salary updated in database");
+                    },
+                    error: function (err) {
+                        alert("Error while inserting data");
+                    }
+                });
+            });
+        </script>*@
+
+<script>
+        $(document).on('click', '.adddetails', function () {
+            //var ii = parseInt($(this).attr("srid"));
+            //console.log(ii);
+            var ii = parseInt($(this).attr("srid"));
+            console.log(ii);
+
+            $.ajax({
+                url: '@Url.Action("giveincrement", "Starting")',
+                type: 'get',
+                dataType: 'html',
+                contentType: 'application/html',
+                data: { id: ii },
+
+                success: function (resp) {
+                    $("#editAddressModal .modal-body").html(resp);
+                    $("#editAddressModal").modal('show');
+                },
+                error: function (err) {
+                    alert("Error while fetching data");
+                }
+            });
+        });
+</script>
+<script>
+    console.log('error');
+        $(document).on('click', '#t5', function () {
+            var change = {};
+            change.salaryid = parseInt($("#add11").val());
+            change.username = $("#t1").val();
+            change.basic = parseInt($("#t2").val());
+            change.tax = parseInt($("#t3").val());
+            change.increment = parseInt($("#t4").val());
+
+            console.log(change);
+
+            $.ajax({
+                url: '@Url.Action("updatebyincrement", "Starting")',
+                type: 'post',
+                dataType: 'json',
+                contentType: 'application/json',
+                data: JSON.stringify(change),
+
+                success: function (resp) {
+                    console.log(resp);
+                    $('body').removeClass('modal-open');
+                    $('.modal-backdrop').remove();
+                    alert("Increment updated");
+                    $("#editAddressModal").modal('hide');
+                    /*location.reload();*/
+                },
+                error: function (err) {
+                    console.log(err);
+                    alert("Error while inserting data");
+                }
+            });
+        });
+</script>
+</body>
+
+</html>

@@ -1,0 +1,292 @@
+﻿@*@using Microsoft.AspNetCore.Identity
+@inject SignInManager<User> signInManager
+@model project.ViewModels.RegisterViewModel*@
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="~/images/favicon_img.png" rel="shortcut icon" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="~/css/About.css?v=101">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+    <script type="text/javascript" src="~/js/cal.js"></script>
+    <title>About Us</title>
+</head>
+<body>
+    <div class="header1" id="topheader">
+        <nav class="navbar navbar-expand-xl navbar-light" style="background-color: #525252;" id="navbar11">
+            <a class="navbar-brand" asp-controller="Starting" asp-action="Index">
+                <img src="~/images/white-logo-transparent-background.png" style="  width: 73px; height: 54px;" id="imgg2">
+            </a>
+            <!-- ............RightSidenav............. -->
+            <div>
+                <span style="font-size:35px;cursor:pointer" onclick="openNav()" class="rtt mr-3 mt-0"> &#9776</span>
+                <div id="mySidenav" class="sidenav">
+
+                    <hr style="height: 5px; color: black;" class="mt-1 mb-1">
+                    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                    <a asp-controller="Starting" asp-action="bookService">Book now</a>
+                    <a asp-controller="Starting" asp-action="prices">Prices and Services</a>
+                    <a href="#">Warranty</a>
+                    <a href="#">Blog</a>
+                    <a asp-controller="Starting" asp-action="Contact">Contact</a>
+                    <a class="text-decoration-none" href="#loginPopup" data-toggle="modal" data-dismiss="modal" data-target="#loginPopup">Login</a>
+                    <a asp-controller="Starting" asp-action="ServiceProvider">Become a helper</a>
+                    <hr style="height: 5px; color: black;" class="mt-1 mb-1">
+                    <a href="" class="ml-5">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="9" height="18" class=" ml-3 mr-3">
+                            <path fill-rule="evenodd" fill="#000" d="M1.947 3.48v2.481H0v3.033h1.947V18.1h4.001V8.995h2.685S8.885 7.541 9.7 5.95H5.963V3.876c0-.31.437-.728.868-.728H9.11V.9H6.46C1.848.9 1.947 3.27 1.947 3.48z" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" class="ms-3">
+                            <path fill-rule="evenodd" fill="#000" d="M14.48 20H5.519A5.524 5.524 0 0 1 0 14.482V5.52C0 2.477 2.475.2 5.519.2h8.961c3.043 0 5.519 2.277 5.519 5.32v8.962A5.525 5.525 0 0 1 14.48 20zm3.744-5.518V5.52a3.748 3.748 0 0 0-3.744-3.744H5.519A3.749 3.749 0 0 0 1.774 5.52v8.962a3.749 3.749 0 0 0 3.745 3.744h8.961a3.748 3.748 0 0 0 3.744-3.744zm-2.855-8.536c-.099 0-.678-.14-.92-.381-.242-.243.221-.578.221-.921 0-.342-.463-.678-.221-.92.242-.242.821-.381.92-.381.343 0 1.111.139.92.381.242.242.381.578.381.92 0 .342-.139.678-.381.921.171.241-.577.381-.92.381zm-5.37 9.208c-2.841 0-5.153-2.312-5.153-5.054 0-2.941 2.312-5.252 5.153-5.252 2.842 0 5.153 2.311 5.153 5.252 0 2.742-2.311 5.054-5.153 5.054zm0-8.532c-1.863 0-3.379 1.516-3.379 3.478 0 1.764 1.516 3.28 3.379 3.28s3.379-1.516 3.379-3.28c0-1.962-1.516-3.478-3.379-3.478z" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <div class="nav-btn-color">
+                            <a class="nav-link py-3 " asp-controller="Starting" asp-action="bookService">Book now</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <div class="nav-btn1">
+                            <a class="nav-link py-3" asp-controller="Starting" asp-action="prices">Prices & services</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <div class="nav-btn1">
+                            <a class="nav-link py-3" href="#">Warranty</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <div class="nav-btn1">
+                            <a class="nav-link py-3" href="#">Blog</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <div class="nav-btn1">
+                            <a class="nav-link py-3" asp-controller="Starting" asp-action="Contact">Contact</a>
+                        </div>
+                    </li>
+                    @*@{
+                        var x = HttpContextAccessor.HttpContext.Session.GetInt32("userid");
+                        if (x == null)
+                        {
+                            <li class="nav-item mt-4">
+                                <div class="nav-btn">
+                                    <a class="nav-btn-item text-decoration-none p-3 m-3" href="#loginPopup" data-toggle="modal" data-dismiss="modal" data-target="#loginPopup">Login</a>
+                                </div>
+                            </li>
+
+                        }
+                        else
+                        {
+                            <li class="nav-item mt-4">
+                                <div class="nav-btn">
+                                    <a class="nav-btn-item text-decoration-none p-3 m-3" asp-controller="Starting" asp-action="logout">Logout</a>
+                                </div>
+                            </li>
+
+                        }*@
+
+                    @*@if (signInManager.IsSignedIn(User))
+                    {
+                        <li class="nav-item mt-4">
+                            <form method="post" asp-controller="Starting" asp-action="logout">
+                                <button type="submit" class="nav-link btn btn-link nav-btn-item text-decoration-none p-3 m-3" style="width:auto">
+                                    Logout @User.Identity.Name
+                                </button>  
+                            </form>
+                        </li>
+                    }
+                    else{
+                <li class="nav-item mt-4">
+                    <div class="nav-btn">
+                        <a class="nav-btn-item text-decoration-none p-3 m-3" asp-controller="Starting" asp-action="Index" >Login</a>
+                    </div>
+                </li>   
+                        }*@
+                    
+
+                    
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div id="box">
+        <img class="img-fluid w-100 main-img" src="~/images/about-top.jpg" />
+    </div>
+    <!-- .............................Login Popup Modal .............................. -->
+    <div>
+        <div class="modal fade" id="loginPopup" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title" id="exampleModalLongTitle">Login to your account</h3>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body loginPopup p-2">
+                        <form asp-controller="Starting" asp-action="LoginAdd">
+                            <div class="form-group position-relative my-3">
+                                <input type="email" placeholder="Email Address" name="email" class="emaill brdr" required>
+                                <img src="~/images/userr.png" alt="" height="21" width="20">
+                            </div>
+                            <div class="form-group position-relative my-3">
+                                <input type="password" placeholder="Password" name="password" class="emaill brdr" required>
+                                <img src="~/images/lock.png" alt="" height="21" width="20">
+                            </div>
+                            <div class="form-group d-flex">
+                                <input type="checkbox" value="rememberme" id="rememberme" class="abb">
+                                <label for="rememberme" class="control-label ml-2 mt-2">Remember me</label>
+                            </div>
+                            <button type="submit" class="my-3 btn submitButton text-light w-100 rounded-pill">
+                                Login
+                            </button>
+                        </form>
+                        <div class="text-center mt-2">
+                            <a href="forgotPassword" class="forgotPwd text-decoration-none" data-target="#forgotPasswordModal" data-toggle="modal" data-dismiss="modal">Forgot Password?</a>
+                        </div>
+                        <div class="text-center">
+                            Don't have account? <span> <a class="forgotPwd text-decoration-none" asp-controller="Starting" asp-action="NewAccount">Create an account? </a></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ...............................Forgot Password Popup Modal.......................... -->
+        <div class="modal fade" id="forgotPasswordModal" aria-hidden="true" aria-labelledby="forgotPasswordModalLabel2" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered modal-md">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title me-3" id="forgotPasswordModalLabel2">Forgot Password</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body ">
+                        <form method="post" asp-action="ForgotPassword" asp-controller="Starting">
+                            <div class="d-flex mb-3">
+                                <input type="email" placeholder="Email Address" name="Email" class="emaill brdr">
+                            </div>
+                            <button type="submit" class="my-3 btn submitButton text-light w-100 rounded-pill">
+                                Send
+                            </button>
+                        </form>
+                        <div class="text-center mt-2">
+                            <a href="loginPopup" class="forgotPwd text-decoration-none" data-target="#loginPopup" data-toggle="modal" data-dismiss="modal">Login now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="prices_heading position-relative">
+        <h1 class="font-weight-bolder">A Few Words About Us</h1>
+        <div class="prices_box">
+            <div class="left_line"></div>
+            <img src="~/images/separator.png" alt="" />
+            <div class="right_line"></div>
+        </div>
+        <div class="logos_img">
+            <p class="mb-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean molestie convallis tempor. Duis vestibulum vel risus condimentum dictum. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus quis enim orci. Fusce risus lacus, sollicitudin eu magna sed, pharetra sodales libero. Proin tincidunt vel erat id porttitor. Donec tristique est arcu, sed dignissim velit vulputate ultricies.</p>
+            <p class="mb-3">Interdum et malesuada fames ac ante ipsum primis in faucibus. In hac habitasse platea dictumst. Vivamus eget mauris eget nisl euismod volutpat sed sed libero. Quisque sit amet lectus ex. Ut semper ligula et mauris tincidunt hendrerit. Aenean ut rhoncus orci, vel elementum turpis. Donec tempor aliquet magna eu fringilla. Nam lobortis libero ut odio finibus lobortis. In hac habitasse platea dictumst. Mauris a hendrerit felis. Praesent ac vehicula ipsum, at porta tellus. Sed dolor augue, posuere sed neque eget, aliquam ultricies velit. Sed lacus elit, tincidunt et massa ac, vehicula placerat lorem.</p>
+        </div>
+    </div>
+
+    <div class="prices_heading position-relative">
+        <h1 class="font-weight-bolder">Our Story</h1>
+        <div class="prices_box">
+            <div class="left_line"></div>
+            <img src="~/images/separator.png" alt="" />
+            <div class="right_line"></div>
+        </div>
+        <div class="logos_img">
+            <p class=" mb-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean molestie convallis tempor. Duis vestibulum vel risus condimentum dictum. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus quis enim orci. Fusce risus lacus, sollicitudin eu magna sed, pharetra sodales libero. Proin tincidunt vel erat id porttitor. Donec tristique est arcu, sed dignissim velit vulputate ultricies.</p>
+            <p class="mb-3">Interdum et malesuada fames ac ante ipsum primis in faucibus. In hac habitasse platea dictumst. Vivamus eget mauris eget nisl euismod volutpat sed sed libero. Quisque sit amet lectus ex. Ut semper ligula et mauris tincidunt hendrerit.</p>
+            <p class="mb-3">Aenean ut rhoncus orci, vel elementum turpis. Donec tempor aliquet magna eu fringilla. Nam lobortis libero ut odio finibus lobortis. In hac habitasse platea dictumst. Mauris a hendrerit felis. Praesent ac vehicula ipsum, at porta tellus. Sed dolor augue, posuere sed neque eget, aliquam ultricies velit. Sed lacus elit, tincidunt et massa ac, vehicula placerat lorem.</p>
+        </div>
+    </div>
+    <section id="get_letter">
+        <div class="d-flex flex-row justify-content-center">
+            <div class="d-flex flex-column" id="jump">
+                <div class="text-center" style="margin-top: 45px; margin-left: -15px;">
+                    <h5>GET OUR NEWSLETTER</h5>
+                </div>
+                <div class="d-flex flex-row justify-content-center" style="margin-top: 15px; margin-bottom: 30px;">
+                    <input type="email" class="text-md-left" style="border-radius: 20px;" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                    <button class="btn text-white">Submit</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="font-small Rectangle-12">
+        <div class="container d-flex flex-row justify-content-between align-items-center" style="max-width: 1800px;">
+            <div class="footer-logo">
+                <img src="~/images/white-logo-transparent-background.png" style="
+        margin-top: 25px; float: left; margin-left: 15px;" class="img-fluid" alt="Responsive image">
+            </div>
+            <div class="footer-links">
+                <div class="row text-center d-flex justify-content-center pt-5 mb-3">
+                    <div class="col-md-2 mb-3">
+                        <h6 class="text-uppercase">
+                            <a asp-controller="Starting" asp-action="Index" style="color: #F1F1F1;" class="text-decoration-none">HOME</a>
+                        </h6>
+                    </div>
+                    <div class="col-md-2 mb-3">
+                        <h6 class="text-uppercase">
+                            <a asp-controller="Starting" asp-action="About" style="color: #F1F1F1;" class="text-decoration-none">ABOUT</a>
+                        </h6>
+                    </div>
+                    <div class="col-md-2 mb-3">
+                        <h6 class="text-uppercase">
+                            <a href="#!" style="color: #F1F1F1;" class="text-decoration-none">TESTIMONIALS</a>
+                        </h6>
+                    </div>
+                    <div class="col-md-2 mb-3">
+                        <h6 class="text-uppercase">
+                            <a asp-controller="Starting" asp-action="Faqs" style="color: #F1F1F1;" class="text-decoration-none">FAQS</a>
+                        </h6>
+                    </div>
+                    <div class="col-md-2 mb-3">
+                        <h6 class="text-uppercase">
+                            <a href="#!" style="color: #F1F1F1;" class="text-decoration-none">INSURANCE POLICY</a>
+                        </h6>
+                    </div>
+                    <div class="col-md-2 mb-3">
+                        <h6 class="text-uppercase">
+                            <a href="#!" style="color: #F1F1F1;" class="text-decoration-none">IMPRESSUM</a>
+                        </h6>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-insta-facebook d-flex flex-row " style="margin-top: -75px;">
+                <img src="~/images/facebook.svg" class="Forma-1 mr-4">
+                <img src="~/images/instagram.svg" class="Forma-2">
+            </div>
+        </div>
+        <div class="footer-copyright text-center py-3 text-white text-center position-relative">
+            Lorem ipsum dolor sit amet
+            consectetur adipisicing elit. Sed nisi at nihil aperiam nesciunt deserunt odit fuga?
+            <a href="#" class="text-decoration-none"> Privacy Policy</a>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js" integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2" crossorigin="anonymous"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+</html>

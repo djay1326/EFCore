@@ -1,0 +1,102 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model project.ViewModels.LoginViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="~/css/login.css">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+          integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+    <script type="text/javascript" src="login.js"></script>
+    <title>Login</title>
+    <style>
+        /*body {
+            background-image: linear-gradient(to right, #DECBA4, #3E5151);
+        }*/
+        body {
+            background-image: linear-gradient(to right, #fc5c7d, #6a82fb);
+        }
+    </style>
+
+</head>
+<body>
+    <div>
+        <div class=" align-items-center justify-content-center" id="loginPopup" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content" style="margin-top: 115px;">
+                    <div class="modal-header">
+                        <h3 class="modal-title" id="exampleModalLongTitle">Login to your account</h3>
+
+                    </div>
+                    <div class="modal-body loginPopup p-2">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <form method="post">
+                            <div class="form-group position-relative my-3">
+                                <input type="email" placeholder="Email Address" asp-for="Email" class="emaill brdr">
+                                <img src="/images/userr.png" alt="" height="21" width="20">
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                            <div class="form-group position-relative my-3">
+                                <input type="password" placeholder="Password" asp-for="Password" class="emaill brdr">
+                                <img src="/images/lock.png" alt="" height="21" width="20">
+                                <span asp-validation-for="Password" class="text-danger"></span>
+                            </div>
+                            <div class="form-group d-flex">
+                                <input type="checkbox" asp-for="RememberMe" class="abb">
+                                @*@Html.DisplayNameFor(m => m.RememberMe)*@
+                                <label for="rememberme" class="control-label ml-2 mt-2">Remember me</label>
+                            </div>
+                            <!-- <button type="submit" class="my-1 btn submitButton text-light w-100 rounded-pill" style="height: 40px">
+                               <span class="align-items-center">Login</span>
+                            </button> -->
+                            <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Log in</button>
+                        </form>
+                        <div class="text-center mt-2">
+                            <a class="forgotPwd text-decoration-none" asp-controller="Starting" asp-action="forgotpwd" style="color:green;">Forgot Password?</a>
+                        </div>
+                        <div class="text-center">
+                            Don't have account? <span> <a class="forgotPwd text-decoration-none" asp-controller="Starting" asp-action="newaccount" style="color: green;">Create an account? </a></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @*<div class="area">
+                <ul class="circles">
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                </ul>
+            </div>*@
+    </div>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js" integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2" crossorigin="anonymous"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+</html>

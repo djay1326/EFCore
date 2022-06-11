@@ -1,0 +1,820 @@
+﻿@using System
+@using System.Globalization  
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<User> signInManager
+@model project.Models.salary
+
+@*@model Microsoft.AspNetCore.Identity.IdentityUser<int>*@
+@{
+    Layout = null;
+    //ViewBag.getmonth = DateTime.Now.Month;
+    DateTime dt = DateTime.Now;
+    ViewBag.getmonth = dt.ToString("MMMM");
+    //ViewBag.getmonth = DateTime.ParseExact(CultureInfo.CurrentCulture).Month;
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- index.html  21 Nov 2019 03:44:50 GMT -->
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+    <title>Workspace</title>
+    <!-- General CSS Files -->
+    <link rel="stylesheet" href="~/assets/css/app.min.css">
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="~/assets/css/style.css">
+    <link rel="stylesheet" href="~/assets/css/components.css">
+    <!-- Custom style CSS -->
+    <link rel="stylesheet" href="~/assets/css/custom.css">
+    <link rel='shortcut icon' type='image/x-icon' href='~/assets/img/favicon.ico' />
+    <link rel="stylesheet" type="text/css" href="~/css/userNewAccount.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+    <style>
+        .xyz {
+            background-color: darkgray !important;
+        }
+
+        .submitButton1 {
+            min-width: 130px;
+            padding: 7px 16px !important;
+            background-color: #1d7a8c !important;
+        }
+
+        .ht {
+            min-height: 46px;
+            padding: 10px;
+        }
+
+        .bdr2 {
+            border: 1px solid #e1e1e1;
+            color: #646464;
+        }
+
+        label {
+            color: #646464;
+        }
+
+        .bld {
+            font-weight: 550;
+        }
+
+        .updateBtn {
+            color: white;
+            background-color: #6777EF;
+        }
+
+        .refundUp {
+            color: white;
+            background-color: #1fb6ff;
+        }
+
+        .def {
+            background-color: white !important;
+        }
+        .ht {
+            min-height: 46px;
+            padding: 10px;
+        }
+
+        .bdr2 {
+            border: 1px solid #e1e1e1;
+            color: #646464;
+        }
+
+        label {
+            color: #646464;
+        }
+
+        .bld {
+            font-weight: 550;
+        }
+
+        .updateBtn {
+            color: white;
+            background-color: #6777EF;
+        }
+
+        .saveBtn {
+            color: white;
+            background-color: #6777EF;
+        }
+
+        .refundUp {
+            color: white;
+            background-color: #1fb6ff;
+        }
+
+        .def {
+            background-color: white !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="loader"></div>
+    <div id="app">
+        <div class="main-wrapper main-wrapper-1">
+            <div class="navbar-bg"></div>
+            <nav class="navbar navbar-expand-lg main-navbar sticky xyz">
+                <div class="form-inline mr-auto">
+                    <ul class="navbar-nav mr-3">
+                        <li>
+                            <a href="#" data-toggle="sidebar" class="nav-link nav-link-lg
+									collapse-btn"> <i data-feather="align-justify"></i></a>
+                        </li>
+                        <li>
+                            <a href="#" class="nav-link nav-link-lg fullscreen-btn">
+                                <i data-feather="maximize"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <form class="form-inline mr-auto">
+                                <div class="search-element">
+                                    <input class="form-control" type="search" placeholder="Search" aria-label="Search" data-width="200">
+                                    <button class="btn" type="submit">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </div>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+                <ul class="navbar-nav navbar-right">
+                    <li class="dropdown dropdown-list-toggle">
+                        <a href="#" data-toggle="dropdown"
+                           class="nav-link nav-link-lg message-toggle">
+                            <i data-feather="mail"></i>
+                            <span class="badge headerBadge1">
+                                6
+                            </span>
+                        </a>
+                        <div class="dropdown-menu dropdown-list dropdown-menu-right pullDown">
+                            <div class="dropdown-header">
+                                Messages
+                                <div class="float-right">
+                                    <a href="#">Mark All As Read</a>
+                                </div>
+                            </div>
+                            <div class="dropdown-list-content dropdown-list-message">
+                                <a href="#" class="dropdown-item">
+                                    <span class="dropdown-item-avatar
+											text-white">
+                                        <img alt="image" src="~/assets/img/users/user-1.png" class="rounded-circle">
+                                    </span> <span class="dropdown-item-desc">
+                                        <span class="message-user">
+                                            John
+                                            Deo
+                                        </span>
+                                        <span class="time messege-text">Please check your mail !!</span>
+                                        <span class="time">2 Min Ago</span>
+                                    </span>
+                                </a> <a href="#" class="dropdown-item">
+                                    <span class="dropdown-item-avatar text-white">
+                                        <img alt="image" src="~/assets/img/users/user-2.png" class="rounded-circle">
+                                    </span> <span class="dropdown-item-desc">
+                                        <span class="message-user">
+                                            Sarah
+                                            Smith
+                                        </span> <span class="time messege-text">
+                                            Request for leave
+                                            application
+                                        </span>
+                                        <span class="time">5 Min Ago</span>
+                                    </span>
+                                </a> <a href="#" class="dropdown-item">
+                                    <span class="dropdown-item-avatar text-white">
+                                        <img alt="image" src="~/assets/img/users/user-5.png" class="rounded-circle">
+                                    </span> <span class="dropdown-item-desc">
+                                        <span class="message-user">
+                                            Jacob
+                                            Ryan
+                                        </span> <span class="time messege-text">
+                                            Your payment invoice is
+                                            generated.
+                                        </span> <span class="time">12 Min Ago</span>
+                                    </span>
+                                </a> <a href="#" class="dropdown-item">
+                                    <span class="dropdown-item-avatar text-white">
+                                        <img alt="image" src="~/assets/img/users/user-4.png" class="rounded-circle">
+                                    </span> <span class="dropdown-item-desc">
+                                        <span class="message-user">
+                                            Lina
+                                            Smith
+                                        </span> <span class="time messege-text">
+                                            hii John, I have upload
+                                            doc
+                                            related to task.
+                                        </span> <span class="time">
+                                            30
+                                            Min Ago
+                                        </span>
+                                    </span>
+                                </a> <a href="#" class="dropdown-item">
+                                    <span class="dropdown-item-avatar text-white">
+                                        <img alt="image" src="~/assets/img/users/user-3.png" class="rounded-circle">
+                                    </span> <span class="dropdown-item-desc">
+                                        <span class="message-user">
+                                            Jalpa
+                                            Joshi
+                                        </span> <span class="time messege-text">
+                                            Please do as specify.
+                                            Let me
+                                            know if you have any query.
+                                        </span> <span class="time">
+                                            1
+                                            Days Ago
+                                        </span>
+                                    </span>
+                                </a> <a href="#" class="dropdown-item">
+                                    <span class="dropdown-item-avatar text-white">
+                                        <img alt="image" src="~/assets/img/users/user-2.png" class="rounded-circle">
+                                    </span> <span class="dropdown-item-desc">
+                                        <span class="message-user">
+                                            Sarah
+                                            Smith
+                                        </span> <span class="time messege-text">Client Requirements</span>
+                                        <span class="time">2 Days Ago</span>
+                                    </span>
+                                </a>
+                            </div>
+                            <div class="dropdown-footer text-center">
+                                <a href="#">View All <i class="fas fa-chevron-right"></i></a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="dropdown dropdown-list-toggle">
+                        <a href="#" data-toggle="dropdown"
+                           class="nav-link notification-toggle nav-link-lg">
+                            <i data-feather="bell" class="bell"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-list dropdown-menu-right pullDown">
+                            <div class="dropdown-header">
+                                Notifications
+                                <div class="float-right">
+                                    <a href="#">Mark All As Read</a>
+                                </div>
+                            </div>
+                            <div class="dropdown-list-content dropdown-list-icons">
+                                <a href="#" class="dropdown-item dropdown-item-unread">
+                                    <span class="dropdown-item-icon bg-primary text-white">
+                                        <i class="fas
+												fa-code"></i>
+                                    </span> <span class="dropdown-item-desc">
+                                        Template update is
+                                        available now! <span class="time">
+                                            2 Min
+                                            Ago
+                                        </span>
+                                    </span>
+                                </a> <a href="#" class="dropdown-item">
+                                    <span class="dropdown-item-icon bg-info text-white">
+                                        <i class="far
+												fa-user"></i>
+                                    </span> <span class="dropdown-item-desc">
+                                        <b>You</b> and <b>
+                                            Dedik
+                                            Sugiharto
+                                        </b> are now friends <span class="time">
+                                            10 Hours
+                                            Ago
+                                        </span>
+                                    </span>
+                                </a> <a href="#" class="dropdown-item">
+                                    <span class="dropdown-item-icon bg-success text-white">
+                                        <i class="fas
+												fa-check"></i>
+                                    </span> <span class="dropdown-item-desc">
+                                        <b>Kusnaedi</b> has
+                                        moved task <b>Fix bug header</b> to <b>Done</b> <span class="time">
+                                            12
+                                            Hours
+                                            Ago
+                                        </span>
+                                    </span>
+                                </a> <a href="#" class="dropdown-item">
+                                    <span class="dropdown-item-icon bg-danger text-white">
+                                        <i class="fas fa-exclamation-triangle"></i>
+                                    </span> <span class="dropdown-item-desc">
+                                        Low disk space. Let's
+                                        clean it! <span class="time">17 Hours Ago</span>
+                                    </span>
+                                </a> <a href="#" class="dropdown-item">
+                                    <span class="dropdown-item-icon bg-info text-white">
+                                        <i class="fas
+												fa-bell"></i>
+                                    </span> <span class="dropdown-item-desc">
+                                        Welcome to Otika
+                                        template! <span class="time">Yesterday</span>
+                                    </span>
+                                </a>
+                            </div>
+                            <div class="dropdown-footer text-center">
+                                <a href="#">View All <i class="fas fa-chevron-right"></i></a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" data-toggle="dropdown"
+                           class="nav-link dropdown-toggle nav-link-lg nav-link-user">
+                            <img alt="image" src="~/assets/img/user.png"
+                                 class="user-img-radious-style"> <span class="d-sm-none d-lg-inline-block"></span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right pullDown">
+
+                            @if (signInManager.IsSignedIn(User))
+                            {
+                                <div class="dropdown-title">Hello, @User.Identity.Name</div>
+                            }
+                            else
+                            {
+                                <div class="dropdown-title">Login First</div>
+                            }
+                            <a href="profile.html" class="dropdown-item has-icon">
+                                <i class="far
+										fa-user"></i> Profile
+                            </a>
+
+                            <a asp-controller="Starting" asp-action="listroles" class="dropdown-item has-icon">
+                                <i class="fas fa-bolt"></i>
+                                Manage Roles
+                            </a>
+                            <a href="#" class="dropdown-item has-icon">
+                                <i class="fas fa-cog"></i>
+                                Settings
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            @*<a href="auth-login.html" class="dropdown-item has-icon text-danger">
+                                    <i class="fas fa-sign-out-alt"></i>
+                                    Logout
+                                </a>*@
+
+                            @if (signInManager.IsSignedIn(User))
+                            {
+                                <form method="post" asp-controller="Starting" asp-action="logout">
+                                    <button type="submit" class="dropdown-item has-icon text-danger border-0" @*asp-controller="Starting" asp-action="logout"*@>
+                                        <i class="fas fa-sign-out-alt mt-2"></i>
+                                        Logout
+                                    </button>
+                                </form>
+
+                            }
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+            <div class="main-sidebar sidebar-style-2">
+                <aside id="sidebar-wrapper">
+                    <div class="sidebar-brand">
+                        <a asp-controller="Starting" asp-action="homepage">
+                            <img alt="image" src="~/assets/img/logo.png" class="header-logo" /> <span class="logo-name">Workspace</span>
+                        </a>
+                    </div>
+                    <ul class="sidebar-menu">
+                        <li class="menu-header">Main</li>
+                        <li class="dropdown ">
+                            <a asp-controller="Starting" asp-action="homepage" class="nav-link"><i data-feather="monitor"></i><span>Dashboard</span></a>
+                        </li>
+
+                        <li class="dropdown ">
+                            <a asp-controller="Starting" asp-action="leavepage" class=" nav-link "><i data-feather="command"></i><span>Leave</span></a>
+                        </li>
+
+                        <li class="dropdown active">
+                            <a asp-controller="Starting" asp-action="salary" class=" nav-link "><i data-feather="mail"></i><span>Salary</span></a>
+                        </li>
+                        @if (signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+                        {
+                            <li class="dropdown">
+                                <a asp-controller="Starting" asp-action="unassignedroles" class=" nav-link "><i data-feather="mail"></i><span>Unassigned roles</span></a>
+                            </li>
+                        }
+                        @if (signInManager.IsSignedIn(User) && User.IsInRole("Manager"))
+                        {
+                            <li class="dropdown">
+                                <a asp-controller="Starting" asp-action="addemp" class=" nav-link "><i data-feather="mail"></i><span>Add Employee</span></a>
+                            </li>
+                        }
+                    </ul>
+                </aside>
+            </div>
+            <!-- Main Content -->
+            <div class="main-content">
+                <section class="section">
+                    <div class="row">
+                        <div class="col-md-12 col-lg-12 col-xl-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="font-weight-bold" style="color:dimgray">Add Salary for this month : <h3 class="col-red">@ViewBag.getmonth</h3> </h4>
+                                </div>
+                                <div>
+                                    <div @*class="EditReschedulePopUp"*@>
+                                        <div class="align-items-center justify-content-center" id="EditReschedule" aria-hidden="true" aria-labelledby="editReschedule" tabindex="-1">
+                                            <div class="modal-dialog modal-dialog-centered vertical-align-center">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="editReschedule">Salary</h5>
+                                                        @*<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>*@
+                                                    </div>
+                                                    <div class="modal-body d-flex editRescheduleModal p-4">
+                                                        <form method="post" class="col-sm-12">
+                                                            <div class="form-group d-flex flex-column mb-3">
+                                                                <label for="reasonScheduleEdit" class="fw-bold">Select Employee</label>
+                                                                <select class="" style="height:35px" asp-items="@(new SelectList(ViewBag.msg,"Id","UserName"))" id="select2">
+                                                                </select>
+                                                                
+                                                            </div>
+                                                            <div class="form-group d-flex flex-column mb-3">
+                                                                <label for="reasonScheduleEdit" class="fw-bold">Month</label>
+                                                                <input type="month" class="bdr2 p-2" asp-for="createddate" id="s2" />
+                                                            </div>
+                                                            <div class="row mb-3">
+                                                                <div class="col-sm-6">
+                                                                    <div class="form-group d-flex flex-column">
+                                                                        <label for="editDateModal" class="control-label fw-bold">Basic Salary</label>
+                                                                        <input type="text" class="ht bdr2" asp-for="basic" id="s3">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-6">
+                                                                    <div class="form-group d-flex flex-column">
+                                                                        <label for="editDateModal" class="control-label fw-bold">Tax</label>
+                                                                        <input type="text" class="ht bdr2" asp-for="tax" id="s4">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                            <input type="hidden" asp-for="userid" id="s5" />
+
+                                                            <button type="button" class="btn saveBtn w-100 saveBtn1" style="color: white; background-color: #6777EF;">Save</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a asp-controller="Starting" asp-action="salary" class="d-flex align-items-center justify-content-center text-decoration-none py-3">Back to List</a>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <div class="settingSidebar">
+                    <a href="javascript:void(0)" class="settingPanelToggle">
+                        <i class="fa fa-spin fa-cog"></i>
+                    </a>
+                    <div class="settingSidebar-body ps-container ps-theme-default">
+                        <div class=" fade show active">
+                            <div class="setting-panel-header">
+                                Setting Panel
+                            </div>
+                            <div class="p-15 border-bottom">
+                                <h6 class="font-medium m-b-10">Select Layout</h6>
+                                <div class="selectgroup layout-color w-50">
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="value" value="1" class="selectgroup-input-radio select-layout" checked>
+                                        <span class="selectgroup-button">Light</span>
+                                    </label>
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="value" value="2" class="selectgroup-input-radio select-layout">
+                                        <span class="selectgroup-button">Dark</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="p-15 border-bottom">
+                                <h6 class="font-medium m-b-10">Sidebar Color</h6>
+                                <div class="selectgroup selectgroup-pills sidebar-color">
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="icon-input" value="1" class="selectgroup-input select-sidebar">
+                                        <span class="selectgroup-button selectgroup-button-icon" data-toggle="tooltip"
+                                              data-original-title="Light Sidebar"><i class="fas fa-sun"></i></span>
+                                    </label>
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="icon-input" value="2" class="selectgroup-input select-sidebar" checked>
+                                        <span class="selectgroup-button selectgroup-button-icon" data-toggle="tooltip"
+                                              data-original-title="Dark Sidebar"><i class="fas fa-moon"></i></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="p-15 border-bottom">
+                                <h6 class="font-medium m-b-10">Color Theme</h6>
+                                <div class="theme-setting-options">
+                                    <ul class="choose-theme list-unstyled mb-0">
+                                        <li title="white" class="active">
+                                            <div class="white"></div>
+                                        </li>
+                                        <li title="cyan">
+                                            <div class="cyan"></div>
+                                        </li>
+                                        <li title="black">
+                                            <div class="black"></div>
+                                        </li>
+                                        <li title="purple">
+                                            <div class="purple"></div>
+                                        </li>
+                                        <li title="orange">
+                                            <div class="orange"></div>
+                                        </li>
+                                        <li title="green">
+                                            <div class="green"></div>
+                                        </li>
+                                        <li title="red">
+                                            <div class="red"></div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="p-15 border-bottom">
+                                <div class="theme-setting-options">
+                                    <label class="m-b-0">
+                                        <input type="checkbox" name="custom-switch-checkbox" class="custom-switch-input"
+                                               id="mini_sidebar_setting">
+                                        <span class="custom-switch-indicator"></span>
+                                        <span class="control-label p-l-10">Mini Sidebar</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="p-15 border-bottom">
+                                <div class="theme-setting-options">
+                                    <label class="m-b-0">
+                                        <input type="checkbox" name="custom-switch-checkbox" class="custom-switch-input"
+                                               id="sticky_header_setting">
+                                        <span class="custom-switch-indicator"></span>
+                                        <span class="control-label p-l-10">Sticky Header</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="mt-4 mb-4 p-3 align-center rt-sidebar-last-ele">
+                                <a href="#" class="btn btn-icon icon-left btn-primary btn-restore-theme">
+                                    <i class="fas fa-undo"></i> Restore Default
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    < !--General JS Scripts -->
+    <script src="~/assets/js/app.min.js"></script>
+    <!-- JS Libraies -->
+    @*<script src="~/assets/bundles/apexcharts/apexcharts.min.js"></script>*@
+    <!-- Page Specific JS File -->
+    @*<script src="~/assets/js/page/index.js"></script>*@
+    <!-- Template JS File -->
+    <script src="~/assets/js/scripts.js"></script>
+    <!-- Custom JS File -->
+    <script src="~/assets/js/custom.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/datetime/1.1.2/js/dataTables.dateTime.min.js"></script>
+    <script>
+            $(document).on('click', ".saveBtn", function () {
+                var savesalarydb = {};
+                savesalarydb.userid = parseInt($("#select2 option:selected").val());
+                savesalarydb.username = $("#select2 option:selected").text();
+                savesalarydb.date = ($("#s2").val()).toString();
+                savesalarydb.basic = parseInt($("#s3").val());
+                savesalarydb.tax = parseInt($("#s4").val());
+                savesalarydb.final = parseInt(savesalarydb.basic - savesalarydb.tax);
+                console.log(savesalarydb);
+                $.ajax({
+                    url: '@Url.Action("savesalary2", "Starting")',
+                    type: 'post',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    data: JSON.stringify(savesalarydb),
+
+                    success: function (resp) {
+                        alert("salary updated in database");
+                        location.reload();
+                    },
+                    error: function (err) {
+                        alert("Error while inserting data");
+                    }
+                });
+            });
+    </script>
+</body>
+
+
+<!-- index.html  21 Nov 2019 03:47:04 GMT -->
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">*@
+
+@*<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="~/css/login.css">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+          integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+    <script type="text/javascript" src="login.js"></script>
+    <title>Login</title>
+    <style>
+        /*body {
+            background-image: linear-gradient(to right, #DECBA4, #3E5151);
+        }*/
+        body {
+            /*background-image: linear-gradient(to right, #fc5c7d, #6a82fb);*/
+        }
+
+        .ht {
+            min-height: 46px;
+            padding: 10px;
+        }
+
+        .bdr2 {
+            border: 1px solid #e1e1e1;
+            color: #646464;
+        }
+
+        label {
+            color: #646464;
+        }
+
+        .bld {
+            font-weight: 550;
+        }
+
+        .updateBtn {
+            color: white;
+            background-color: #6777EF;
+        }
+
+        .saveBtn {
+            color: white;
+            background-color: #6777EF;
+        }
+
+        .refundUp {
+            color: white;
+            background-color: #1fb6ff;
+        }
+
+        .def {
+            background-color: white !important;
+        }
+    </style>
+
+
+</head>*@
+@*<body>
+    <div>
+        <div class="EditReschedulePopUp">
+            <div class="align-items-center justify-content-center" id="EditReschedule" aria-hidden="true" aria-labelledby="editReschedule" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered vertical-align-center">
+                    <div class="modal-content" style="margin-top: 115px;">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editReschedule">Salary</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body d-flex editRescheduleModal p-4">
+                            <form method="post" class="col-sm-12">
+                                <div class="form-group d-flex flex-column mb-3">
+                                    <label for="reasonScheduleEdit" class="fw-bold">Select Employee</label>
+                                    <select class="" style="height:35px" asp-items="@(new SelectList(ViewBag.msg,"Id","UserName"))" id="select2">
+                                    </select>
+                                    <option disabled selected>Status</option>
+                                        <option value="2">Accepted</option>
+                                            asp-items="@(new SelectList(@ViewBag.message,"userid","username"))
+                                </div>
+                                <div class="form-group d-flex flex-column mb-3">
+                                    <label for="reasonScheduleEdit" class="fw-bold">Month</label>
+                                    <input type="month" class="bdr2 p-2" asp-for="createddate" id="s2" />
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-sm-6">
+                                        <div class="form-group d-flex flex-column">
+                                            <label for="editDateModal" class="control-label fw-bold">Basic Salary</label>
+                                            <input type="text" class="ht bdr2" asp-for="basic" id="s3">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group d-flex flex-column">
+                                            <label for="editDateModal" class="control-label fw-bold">Tax</label>
+                                            <input type="text" class="ht bdr2" asp-for="tax" id="s4">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group d-flex flex-column mb-3">
+                                        <label for="reasonScheduleEdit" class="fw-bold">Final Salary</label>
+                                        <input type="text" disabled class="bdr2 p-2" asp-for="final"/>
+                                    </div>
+                                <input type="hidden" asp-for="userid" id="s5" />
+
+                                <button type="button" class="btn saveBtn w-100 saveBtn1">Save</button>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <a asp-controller="Starting" asp-action="salary" class="d-flex align-items-center justify-content-center text-decoration-none">Back to List</a>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js" integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2" crossorigin="anonymous"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+    <script src="~/assets/js/app.min.js"></script>
+
+    <script src="~/assets/js/scripts.js"></script>
+
+    <script src="~/assets/js/custom.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap4.min.js"></script>
+        <script src="https://cdn.datatables.net/datetime/1.1.2/js/dataTables.dateTime.min.js"></script>
+
+    <script>
+            $(document).on('click', ".saveBtn", function () {
+                var savesalarydb = {};
+                savesalarydb.userid = parseInt($("#select2 option:selected").val());
+                savesalarydb.username = $("#select2 option:selected").text();
+                savesalarydb.date = ($("#s2").val()).toString();
+                savesalarydb.basic = parseInt($("#s3").val());
+                savesalarydb.tax = parseInt($("#s4").val());
+                savesalarydb.final = parseInt(savesalarydb.basic - savesalarydb.tax);
+                console.log(savesalarydb);
+                $.ajax({
+                    url: '@Url.Action("savesalary2", "Starting")',
+                    type: 'post',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    data: JSON.stringify(savesalarydb),
+
+                    success: function (resp) {
+                        alert("salary updated in database");
+
+                    },
+                    error: function (err) {
+                        alert("Error while inserting data");
+                    }
+                });
+            });
+    </script>
+
+</body>*@
+@*</html>*@

@@ -1,0 +1,201 @@
+*{margin: 0;padding: 0;box-sizing: border-box; font-family: 'Roboto';}
+
+a{ text-decoration: none;}
+
+a:hover{
+    text-decoration: none !important; 
+}
+html{
+    overflow-x: hidden;
+}
+li{ list-style: none; }
+
+.nav-btn a{
+    border: 1px solid #fff;
+    border-radius: 100px;
+    margin: 0 15px;
+    padding: 5px 10px;
+    outline: none;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.4;
+    text-align: center;
+    margin-top: 5px;
+}
+
+.nav-btn-color a{
+    border: 1px solid #fff;
+    border-radius: 100px;
+    margin: 0 15px;
+    padding: 5px 10px;
+    outline: none;
+    color: #fff;
+    background-color: #29626D;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.4;
+    text-align: center;
+    margin-top: 5px;
+}
+
+
+.nav-btn1 a{
+    margin: 0 5px;
+    padding: 5px 15px;
+    outline: none;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.4;
+    text-align: center;
+    margin-top: 5px;
+}
+
+.nav-item a{
+    color: #fff !important;
+    font-size: 17px;
+}
+
+/*.......................Middle Portion...............*/
+.prices_heading{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #4f4f4f;
+    margin-top: 30px;
+}
+.prices_heading h1{
+    font-size: 36px;
+}
+.prices_box{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+.left_line , .right_line{
+    width: 62px;
+    height: 1px;
+    background-color: #CCCCCC;
+    margin: 0px 8px;
+}
+button:focus , input:focus , textarea:focus , select:focus{
+    box-shadow: none !important;
+    border: 2px solid #1d7a8c !important;
+    outline: #1d7a8c !important;
+}
+.abb{
+    height: 20px;
+    width: 20px;
+}
+.createNewAccount{
+    max-width: 615px;
+    margin: 0 auto;
+    overflow-x: hidden;
+    padding: 15px;
+}
+
+.clr1{
+    color: #646464;
+}
+.clr2{
+    color: #1d7a8c;
+}
+.abc{
+    font-size: 14px;
+}
+.submitButton{
+    min-width: 170px;
+    padding: 10px 30px !important;
+    background-color: #1d7a8c !important;
+}
+/*....................Footer section................*/
+.Rectangle-12 {
+    background-color: #111;
+  }
+
+.footer_section{
+    background-color: #111111;
+}
+
+.footer_main{
+    height: 130px;
+}
+.footer_mid ul li{
+    margin: 12px;
+    list-style: none;
+}
+.footer_mid ul li a{
+    color: #f1f1f1;
+    font-size: 14px;
+}
+.footer_right svg{
+    margin: 0 10px;
+}
+
+.footer_end{
+    background-color: #292929;
+    height: fit-content;
+}
+
+.footer_end p{
+    color: #f1f1f1;
+    padding: 26px 0px;
+    font-size: 14px;
+}
+.footer_end p span a{
+    color: #6eabef;
+}
+
+.footer_btn{
+    background-color: #eed507 !important;
+    padding: 10px 35px !important;
+    position: absolute !important;
+    right: 15px;
+    /* margin-top: 1px; */
+}
+.img-fluid{
+    height: 25vh;
+    width: 100%;
+}
+
+
+@media (max-width: 1024px){
+    .footer_btn{
+        position: relative !important;
+        right: 0;
+        margin-left: 5px;
+    }
+    
+}
+
+
+@media (max-width: 768px){
+    .footer_mid ul{
+        display: grid !important;
+        grid-template-columns: 1fr 2fr 1fr;
+        gap: 0px 10px;
+        padding: 20px 0 !important;
+        margin: 0;
+    }
+    .footer_main{
+        flex-direction: column;
+        height: fit-content !important;
+        padding: 20px 0px;
+        justify-content: space-between !important;
+    }
+    .logos_img{
+        margin-left: 40px;
+        margin-right: 25px;       
+}
+    
+}
+
+@media (max-width: 425px){
+    .footer_end{
+        flex-direction: column;
+        padding: 0 10px;
+    }
+}
